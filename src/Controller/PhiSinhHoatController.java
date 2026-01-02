@@ -130,6 +130,9 @@ public class PhiSinhHoatController {
         Float tienDien = Float.valueOf(tienDienText.getText());
         Float tienNuoc = Float.valueOf(tienNuocText.getText());
         Float tienInternet = Float.valueOf(tienInternetText.getText());
+        int selectedMonth = monthCBox.getValue();
+        int selectedYear = yearCBox.getValue();
+
         if(ControllerUtil.isEmptyOrNull(maHoKhau) || ControllerUtil.isEmptyOrNull(String.valueOf(tienDien)) || ControllerUtil.isEmptyOrNull(String.valueOf(tienNuoc)) || ControllerUtil.isEmptyOrNull(String.valueOf(tienInternet))){
             ControllerUtil.showErrorMessage("Vui lòng nhập đầy đủ các trường trong form!");
             return;
@@ -146,15 +149,15 @@ public class PhiSinhHoatController {
             ControllerUtil.showErrorMessage("Tiền internet không hợp lệ. Vui lòng nhập lại!");
             return;
         }
-        boolean confirmed = ControllerUtil.showConfirmationDialog("Xác nhận cập nhật phí sinh hoạt", "Bạn có chắc chắn muốn cập nhật phí sinh hoạt tháng " + currentDate.getMonthValue() + " của hộ khẩu này không?");
+        boolean confirmed = ControllerUtil.showConfirmationDialog("Xác nhận cập nhật phí sinh hoạt", "Bạn có chắc chắn muốn cập nhật phí sinh hoạt tháng " + selectedMonth + " năm " + selectedYear + " của hộ khẩu này không?");
         if(confirmed){
-            boolean check = MysqlConnector.getInstance().isaddCapNhatPhiSinhHoatValidated(maHoKhau);
+            boolean check = MysqlConnector.getInstance().isaddCapNhatPhiSinhHoatValidated(maHoKhau, selectedMonth, selectedYear);
             if(check){
-                ControllerUtil.showErrorMessage("Tiền sinh hoạt của hộ khẩu có mã " + maHoKhau + " đã được cập nhật. Vui lòng chọn lại mã hộ khẩu khác!");
+                ControllerUtil.showErrorMessage("Tiền sinh hoạt của hộ khẩu có mã " + maHoKhau + " đã được cập nhật cho tháng này. Vui lòng chọn lại mã hộ khẩu khác!");
                 return;
             }
             CapNhatPhiSinhHoat fee = new CapNhatPhiSinhHoat(maHoKhau, tienDien, tienNuoc, tienInternet);
-            MysqlConnector.getInstance().addCapNhatPhiSinhHoatData(fee);
+            MysqlConnector.getInstance().addCapNhatPhiSinhHoatData(fee, selectedMonth, selectedYear);
             ControllerUtil.showSuccessAlert("Cập nhật phí sinh hoạt thành công!");
             updateFeeList.add(fee);
             updateFeeTableView.refresh();
@@ -195,7 +198,7 @@ public class PhiSinhHoatController {
     }
     
     private void initializeComboBox(){
-        yearCBox.getItems().addAll(2023, 2024);
+        yearCBox.getItems().addAll(2023, 2024, 2025, 2026);
         yearCBox.setValue(currentDate.getYear());
         monthCBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11, 12);
         monthCBox.setValue(currentDate.getMonthValue());

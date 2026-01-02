@@ -106,7 +106,7 @@ public class PhiQuanLyController {
     public void initialize(){
         loadData(Year.now().getValue());
         initializeSearchbar();
-        yearCBox.getItems().addAll(2023, 2024, 2025);
+        yearCBox.getItems().addAll(2023, 2024, 2025, 2026);
         yearCBox.setValue(Year.now().getValue());
         feeLabel.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 22;");
         

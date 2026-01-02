@@ -130,7 +130,7 @@ public class PhiGuiXeController {
     public void initialize(){
         loadData(Year.now().getValue());
         initializeSearchbar();
-        yearCBox.getItems().addAll(2023, 2024, 2025);
+        yearCBox.getItems().addAll(2023, 2024, 2025, 2026);
         yearCBox.setValue(Year.now().getValue());
         
         List<String> maHoKhauList = new ArrayList<>();
@@ -172,7 +172,7 @@ public class PhiGuiXeController {
         }
         boolean confirmed = ControllerUtil.showConfirmationDialog("Xác nhận cập nhật số phương tiện của 1 hộ khẩu" , "Bạn có chắc chắn muốn thay đổi số phương tiện của hộ khẩu có mã " + maHoKhau + " không ?" );
         if(confirmed){
-            MysqlConnector.getInstance().changeVehicleData(maHoKhau, soXeMay, soOTo, soXeDap, Year.now().getValue());
+            MysqlConnector.getInstance().changeVehicleData(maHoKhau, soXeMay, soOTo, soXeDap, yearCBox.getValue());
             ControllerUtil.showSuccessAlert("Cập nhật thành công!");
             feeList = MysqlConnector.getInstance().getFeeData(tenPhi, yearCBox.getValue());
             feeTableView.setItems(feeList);
@@ -214,14 +214,14 @@ public class PhiGuiXeController {
         
         boolean confirmed = ControllerUtil.showConfirmationDialog("Xác nhận thay đổi tiền gửi xe đối với mỗi phương tiện" , "Bạn có chắc chắn muốn thay đổi tiền gửi xe đối với mỗi phương tiện không ?");
         if(confirmed){
-            MysqlConnector.getInstance().changeFeePerVehicleData(giaXeMay, giaOTo, giaXeDap, Year.now().getValue());
+            MysqlConnector.getInstance().changeFeePerVehicleData(giaXeMay, giaOTo, giaXeDap, yearCBox.getValue());
             ControllerUtil.showSuccessAlert("Cập nhật thành công!");
             feeList = MysqlConnector.getInstance().getFeeData(tenPhi, yearCBox.getValue());
             feeTableView.setItems(feeList);
             feeTableView.refresh();
-            giaXeMayLabel.setText(Float.toString(MysqlConnector.getInstance().getFeePerVehicleData("GiaXeMay", Year.now().getValue())) + " /đồng/xe/tháng");
-            giaOToLabel.setText(Float.toString(MysqlConnector.getInstance().getFeePerVehicleData("GiaOTo", Year.now().getValue())) + " /đồng/xe/tháng");
-            giaXeDapLabel.setText(Float.toString(MysqlConnector.getInstance().getFeePerVehicleData("GiaXeDap", Year.now().getValue())) + " /đồng/xe/tháng");
+            giaXeMayLabel.setText(Float.toString(MysqlConnector.getInstance().getFeePerVehicleData("GiaXeMay", yearCBox.getValue())) + " /đồng/xe/tháng");
+            giaOToLabel.setText(Float.toString(MysqlConnector.getInstance().getFeePerVehicleData("GiaOTo", yearCBox.getValue())) + " /đồng/xe/tháng");
+            giaXeDapLabel.setText(Float.toString(MysqlConnector.getInstance().getFeePerVehicleData("GiaXeDap", yearCBox.getValue())) + " /đồng/xe/tháng");
             giaXeMayText.clear();
             giaOToText.clear();
             giaXeDapText.clear();
