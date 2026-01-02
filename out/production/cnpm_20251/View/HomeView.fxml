@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.5" prefWidth="1464.0" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+   <!-- Sidebar -->
+   <left>
+      <VBox fx:id="sidebarPane" prefHeight="773.5" prefWidth="260.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <!-- Residents Menu -->
+            <MenuButton fx:id="homeOwnerButton" accessibleRole="BUTTON" graphicTextGap="20.0" maxWidth="Infinity" mnemonicParsing="false" popupSide="RIGHT" styleClass="dbButton" text="Dân cư">
+               <items>
+                  <MenuItem fx:id="residentButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Nhân khẩu" />
+                  <MenuItem fx:id="householdButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Hộ khẩu" />
+               </items>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/ResidentIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </MenuButton>
+            
+            <!-- Fees Menu -->
+            <MenuButton fx:id="feeButton" graphicTextGap="20.0" maxWidth="Infinity" mnemonicParsing="false" popupSide="RIGHT" styleClass="dbButton" text="Khoản thu">
+              <items>
+                <MenuItem fx:id="serviceFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Phí dịch vụ" />
+                  <MenuItem fx:id="managementFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Phí quản lý" />
+                <MenuItem fx:id="parkingFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Phí gửi xe" />
+                  <MenuItem fx:id="livingFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Phí sinh hoạt" />
+                  <MenuItem fx:id="voluntaryFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Phí đóng góp" />
+                  <MenuItem fx:id="payButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Thanh toán" />
+                  <MenuItem fx:id="statisticButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Thống kê" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/MoneyIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </MenuButton>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+   </left>
+   
+   <!-- Header -->
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1464.0" spacing="15.0" styleClass="top-bar" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/logo.jpg" />
+               </image>
+            </ImageView>
+            <Label styleClass="app-title" text="BLUEMOON" />
+            
+            <Pane HBox.hgrow="ALWAYS" /> <!-- Spacer -->
+            
+            <!-- Admin Menu -->
+            <MenuButton fx:id="settingButton" graphicTextGap="10.0" mnemonicParsing="false" text="Admin">
+               <items>
+                  <MenuItem fx:id="userInfoButton" mnemonicParsing="false" onAction="#UserInfoOnAction" styleClass="settingItem" text="Thông tin cá nhân" />
+                  <MenuItem fx:id="changePwButton" mnemonicParsing="false" onAction="#ChangePwOnAction" styleClass="settingItem" text="Thay đổi mật khẩu" />
+                  <MenuItem fx:id="logoutButton" mnemonicParsing="false" onAction="#LogoutOnAction" styleClass="settingItem" text="Đăng xuất" />
+               </items>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/AvaIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </MenuButton>
+         </children>
+      </HBox>
+   </top>
+   
+   <!-- Main Content Area -->
+   <center>
+      <AnchorPane prefHeight="773.5" prefWidth="1204.0" style="-fx-background-color: #f0f4f8;" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

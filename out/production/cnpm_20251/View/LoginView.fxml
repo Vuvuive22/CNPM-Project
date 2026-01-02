@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="rootPane" prefHeight="823.5" prefWidth="1464.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+   <children>
+      <!-- Background pane to catch clicks (keeping fx:id backGround for Controller compatibility) -->
+      <AnchorPane fx:id="backGround" onMousePressed="#LostFocus" prefHeight="200.0" prefWidth="200.0" styleClass="root" />
+      
+      <!-- Main Login Card -->
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="login-card">
+         <children>
+            <!-- Left Side: Branding / Image -->
+            <VBox alignment="CENTER" prefHeight="520.0" prefWidth="400.0" style="-fx-background-color: #f0f4f8; -fx-background-radius: 12 0 0 12;">
+               <children>
+                  <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/logo.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label style="-fx-font-family: 'Segoe UI'; -fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #102a43;" text="BLUE MOON" />
+                  <Label styleClass="subtitle-label" text="Management System" />
+               </children>
+            </VBox>
+            
+            <!-- Right Side: Login Form -->
+            <VBox alignment="CENTER_LEFT" prefHeight="520.0" prefWidth="420.0" spacing="20.0" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="40.0" left="50.0" right="50.0" top="40.0" />
+               </padding>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label styleClass="title-label" text="Welcome Back" />
+                        <Label styleClass="subtitle-label" text="Please enter your details." />
+                     </children>
+                  </VBox>
+                  
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label styleClass="field-label" text="Username" />
+                        <TextField fx:id="txtUserName" promptText="Enter your username" styleClass="text-field" />
+                     </children>
+                  </VBox>
+                  
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label styleClass="field-label" text="Password" />
+                        <StackPane alignment="CENTER_RIGHT">
+                           <children>
+                              <HBox fx:id="showPassword" visible="false">
+                                 <children>
+                                    <TextField fx:id="txtShowPassword" onKeyReleased="#ShowPasswordOnAction" promptText="Enter your password" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                                    <ImageView fx:id="Open_Eye_Icon" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#Open_Eye_ClickOnAction" pickOnBounds="true" preserveRatio="true" styleClass="icon-button">
+                                       <image>
+                                          <Image url="@../image/showpassword.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="-30.0" top="10.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="hidePassword">
+                                 <children>
+                                    <PasswordField fx:id="txtHidePassword" onKeyReleased="#HidePasswordOnAction" promptText="Enter your password" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                                    <ImageView fx:id="Close_Eye_Icon" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#Close_Eye_ClickOnAction" pickOnBounds="true" preserveRatio="true" styleClass="icon-button">
+                                       <image>
+                                          <Image url="@../image/hidepassword.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="-30.0" top="10.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+                  
+                  <Button fx:id="loginButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#CheckLogin" styleClass="login-button" text="Sign in" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</StackPane>
