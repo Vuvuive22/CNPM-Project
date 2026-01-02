@@ -1,0 +1,133 @@
+/* Modern Home/Dashboard CSS */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar Styling */
+#sidebarPane {
+    -fx-background-color: #102a43;
+    /* Dark Blue */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}
+
+.dbButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-mark-color: #ffffff;
+}
+
+/* Explicitly target the label inside to override any skin defaults */
+.dbButton>.label {
+    -fx-text-fill: #ffffff !important;
+}
+
+.dbButton:hover {
+    -fx-background-color: #243b53;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.1), 10, 0, 0, 0);
+}
+
+.dbButton:showing {
+    -fx-background-color: #243b53;
+}
+
+.dbButton>.arrow-button {
+    -fx-padding: 0;
+}
+
+.dbButton>.arrow-button>.arrow {
+    -fx-background-color: white;
+}
+
+/* Sidebar Popup Menus (The "Dropdowns") */
+.context-menu {
+    -fx-background-color: #243b53;
+    -fx-background-radius: 0 0 6px 6px;
+    -fx-shadow-highlight-color: transparent;
+    -fx-padding: 0;
+}
+
+.display-node {
+    -fx-padding: 0;
+}
+
+/* Menu Items inside the popup */
+.dbItem {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d9e2ec;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-pref-width: 240px;
+    /* Match sidebar width approx */
+}
+
+.dbItem:hover {
+    -fx-background-color: #334e68;
+    -fx-text-fill: white;
+}
+
+.dbItem:focused {
+    -fx-background-color: #334e68;
+}
+
+.dbItem .label {
+    -fx-text-fill: #d9e2ec;
+}
+
+.dbItem:hover .label {
+    -fx-text-fill: white;
+}
+
+/* Header Styling */
+.top-bar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+    -fx-padding: 0 20px;
+}
+
+.app-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #102a43;
+}
+
+/* Admin/Setting Button in Header */
+#settingButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #334e68;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+#settingButton:hover {
+    -fx-background-color: #f0f4f8;
+    -fx-background-radius: 4px;
+}
+
+#settingButton .context-menu {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 4);
+    -fx-background-radius: 6px;
+}
+
+.settingItem {
+    -fx-text-fill: #334e68;
+    -fx-padding: 10px 15px;
+}
+
+.settingItem:hover {
+    -fx-background-color: #f0f4f8;
+    -fx-text-fill: #102a43;
+}
+
+.settingItem .label {
+    -fx-text-fill: #334e68;
+}
+
+.settingItem:hover .label {
+    -fx-text-fill: #102a43;
+}

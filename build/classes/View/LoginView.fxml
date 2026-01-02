@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.5" prefWidth="1464.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+   <children>
+      <ImageView fx:id="backGround" fitHeight="950.0" fitWidth="1900.0" onMousePressed="#LostFocus" opacity="0.69" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/BackgroundImage.jpg" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="266.0" layoutY="141.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-border-color: black; -fx-background-color: white; -fx-padding: 20; -fx-border-radius: 30; -fx-background-radius: 30;">
+        <columnConstraints>
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="350" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="200" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+           <VBox prefHeight="400.0" prefWidth="300.0" style="-fx-border-radius: 30;" GridPane.columnIndex="1">
+              <children>
+                 <HBox alignment="BOTTOM_CENTER" prefHeight="153.0" prefWidth="530.0" style="-fx-border-color: 30; -fx-background-color: white;">
+                    <children>
+                       <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="102.0" prefWidth="350.0" style="-fx-font-weight: bold;" text="LOGIN" textAlignment="CENTER" textFill="#1874cd">
+                          <font>
+                             <Font name="Goudy Old Style" size="74.0" />
+                          </font>
+                       </Label>
+                    </children>
+                 </HBox>
+                 <VBox prefHeight="106.0" prefWidth="530.0">
+                    <children>
+                       <Label text="Username" textAlignment="CENTER">
+                          <padding>
+                             <Insets left="15.0" top="15.0" />
+                          </padding>
+                          <font>
+                             <Font name="Arial" size="25.0" />
+                          </font>
+                       </Label>
+                       <TextField fx:id="txtUserName" prefHeight="40.0" prefWidth="450.0" promptText="Enter your username">
+                          <font>
+                             <Font name="Arial" size="16.0" />
+                          </font>
+                          <VBox.margin>
+                             <Insets left="15.0" right="35.0" />
+                          </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                       </TextField>
+                    </children>
+                 </VBox>
+                 <VBox prefHeight="104.0" prefWidth="530.0">
+                    <children>
+                       <Label text="Password" textAlignment="CENTER">
+                          <padding>
+                             <Insets left="15.0" top="15.0" />
+                          </padding>
+                          <font>
+                             <Font name="Arial" size="25.0" />
+                          </font>
+                       </Label>
+                       <StackPane prefHeight="150.0" prefWidth="200.0">
+                          <children>
+                             <HBox fx:id="showPassword" prefHeight="39.2" prefWidth="350.0">
+                                <children>
+                                   <TextField fx:id="txtShowPassword" onKeyReleased="#ShowPasswordOnAction" prefHeight="40.0" prefWidth="500.0" promptText="Enter your password">
+                                      <font>
+                                         <Font name="Arial" size="16.0" />
+                                      </font>
+                                      <HBox.margin>
+                                         <Insets left="15.0" />
+                                      </HBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                   </TextField>
+                                   <ImageView fx:id="Open_Eye_Icon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#Open_Eye_ClickOnAction" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                         <Image url="@../image/showpassword.png" />
+                                      </image>
+                                      <HBox.margin>
+                                         <Insets left="5.0" top="2.5" />
+                                      </HBox.margin>
+                                      <cursor>
+                                         <Cursor fx:constant="HAND" />
+                                      </cursor>
+                                   </ImageView>
+                                </children>
+                             </HBox>
+                             <HBox fx:id="hidePassword" prefHeight="39.2" prefWidth="350.0">
+                                <children>
+                                    <PasswordField fx:id="txtHidePassword" onKeyReleased="#HidePasswordOnAction" prefHeight="40.0" prefWidth="500.0" promptText="Enter your password">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Arial" size="16.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                    </PasswordField>
+                                   <ImageView fx:id="Close_Eye_Icon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#Close_Eye_ClickOnAction" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                         <Image url="@../image/hidepassword.png" />
+                                      </image>
+                                      <HBox.margin>
+                                         <Insets left="5.0" top="2.5" />
+                                      </HBox.margin>
+                                      <cursor>
+                                         <Cursor fx:constant="HAND" />
+                                      </cursor>
+                                   </ImageView>
+                                </children>
+                             </HBox>
+                          </children>
+                       </StackPane>
+                    </children>
+                 </VBox>
+                 <VBox alignment="CENTER" prefHeight="140.0" prefWidth="350.0">
+                    <children>
+                       <Button fx:id="loginButton" mnemonicParsing="false" onAction="#CheckLogin" prefHeight="34.0" prefWidth="163.0" text="Login" textFill="WHITE">
+                          <font>
+                             <Font name="System Bold" size="22.0" />
+                          </font>
+                          <VBox.margin>
+                             <Insets bottom="40.0" />
+                          </VBox.margin>
+                          <cursor>     
+                             <Cursor fx:constant="HAND" />
+                          </cursor>
+
+                             </Button>
+                    </children>
+                 </VBox>
+              </children>
+           </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                 <ImageView fitHeight="503.0" fitWidth="426.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                       <Image url="@../image/logo.jpg" />
+                    </image>
+                  </ImageView>
+                  <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="426.0" style="-fx-font-weight: bold;" text="BLUE MOON" textAlignment="CENTER" textFill="#004a8e">
+                     <font>
+                        <Font name="Goudy Old Style" size="53.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+        </children>
+      </GridPane>
+      
+   </children>
+</AnchorPane>

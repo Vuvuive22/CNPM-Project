@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="773.5" prefWidth="1214.0" stylesheets="@../css/page.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.NhanKhauController">
+   <children>
+      <AnchorPane layoutX="7.0" layoutY="10.0" prefHeight="80.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="15.0" prefHeight="50.0" prefWidth="200.0" text="Nhân khẩu">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="7.0" layoutY="100.0" prefHeight="670.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label layoutX="113.0" layoutY="12.0" text="Tìm kiếm:">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="searchbar" layoutX="285.0" layoutY="12.0" prefHeight="26.0" prefWidth="616.0" promptText="Search..." />
+            <TableView fx:id="residentTableView" layoutX="25.0" layoutY="55.0" prefHeight="270.0" prefWidth="1150.0" styleClass="table">
+              <columns>
+                <TableColumn fx:id="maHKCol" prefWidth="100.0" text="Mã hộ khẩu" />
+                <TableColumn fx:id="hoTenCol" prefWidth="145.0" text="Họ và tên" />
+                  <TableColumn fx:id="tuoiCol" prefWidth="100.0" text="Tuổi" />
+                  <TableColumn fx:id="gioiTinhCol" prefWidth="100.0" text="Giới tính" />
+                  <TableColumn fx:id="soCCCDCol" prefWidth="150.0" text="Số CMND/CCCD" />
+                  <TableColumn fx:id="soDTCol" minWidth="-1.0" prefWidth="150.0" text="Số điện thoại" />
+                  <TableColumn fx:id="quanHeCol" prefWidth="150.0" text="Quan hệ với chủ hộ" />
+                  <TableColumn fx:id="tamVangCol" prefWidth="125.0" text="Khai báo tạm vắng" />
+                  <TableColumn fx:id="tamTruCol" prefWidth="125.0" text="Khai báo tạm trú" />
+              </columns>
+            </TableView>
+            <AnchorPane layoutX="25.0" layoutY="335.0" prefHeight="180.0" prefWidth="440.0" styleClass="form">
+               <children>
+                  <TextField fx:id="soCCCDTamTruText" layoutX="15.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Số CMND/CCCD" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="soGiayTamTruText" layoutX="15.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Số giấy tạm trú" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="lyDoTamTruText" layoutX="15.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Lý do" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="220.0" layoutY="125.0" mnemonicParsing="false" onAction="#khaiBaoTamTruOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #87fcae; -fx-background-radius: 5px;" text="Khai báo tạm trú" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <DatePicker fx:id="tuNgayTamTruText" layoutX="265.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Từ ngày" styleClass="field" />
+                  <DatePicker fx:id="denNgayTamTruText" layoutX="265.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Đến ngày" styleClass="field" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="495.0" layoutY="335.0" prefHeight="180.0" prefWidth="440.0" styleClass="form">
+               <children>
+                  <TextField fx:id="soCCCDTamVangText" layoutX="15.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Số CMND/CCCD" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="soGiayTamVangText" layoutX="15.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Số giấy tạm vắng" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="noiTamTruText" layoutX="15.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Nơi tạm trú" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="226.0" layoutY="125.0" mnemonicParsing="false" onAction="#khaiBaoTamVangOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #00ffff; -fx-background-radius: 5px;" text="Khai báo tạm vắng" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <DatePicker fx:id="tuNgayTamVangText" layoutX="265.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Từ ngày" styleClass="field" />
+                  <DatePicker fx:id="denNgayTamVangText" layoutX="265.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Đến ngày" styleClass="field" />
+               </children>
+            </AnchorPane>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="956.0" layoutY="335.0" mnemonicParsing="false" onAction="#deleteNhanKhauOnAction" prefHeight="40.0" prefWidth="226.0" style="-fx-background-color: #e6e6fa; -fx-background-radius: 5px;" text="Xóa nhân khẩu" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="956.0" layoutY="385.0" mnemonicParsing="false" onAction="#xemTamTruOnAction" prefHeight="40.0" prefWidth="226.0" style="-fx-background-color: #ffff00; -fx-background-radius: 5px;" text="Xem DS khai báo tạm trú" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="956.0" layoutY="432.0" mnemonicParsing="false" onAction="#xemTamVangOnAction" prefHeight="40.0" prefWidth="226.0" style="-fx-background-color: #ffc1c1; -fx-background-radius: 5px;" text="Xem DS khai báo tạm vắng" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <AnchorPane layoutX="25.0" layoutY="529.0" prefHeight="135.0" prefWidth="570.0" styleClass="form">
+               <children>
+                  <TextField fx:id="addHoTenText" layoutX="15.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Họ và tên" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addTuoiText" layoutX="15.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Tuổi" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addGioiTinhText" layoutX="205.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Giới tính">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addSoCCCDText" layoutX="205.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Số CMND/CCCD" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addSoDTText" layoutX="205.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Số điện thoại" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="91.0" mnemonicParsing="false" onAction="#addNhanKhauOnAction" prefHeight="30.0" prefWidth="160.0" styleClass="addBtn" text="Thêm nhân khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <CheckBox fx:id="isChuHoCBox" layoutX="395.0" layoutY="15.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" styleClass="field" text="Là chủ hộ" />
+                  <TextField fx:id="addQuanHeText" layoutX="395.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Quan hệ với chủ hộ" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="addMaHoKhauCBox" layoutX="15.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Mã hộ khẩu" styleClass="comboBox">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="604.0" layoutY="529.0" prefHeight="135.0" prefWidth="570.0" styleClass="form">
+               <children>
+                  <TextField fx:id="updateHoTenText" layoutX="15.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Họ và tên" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="updateTuoiText" layoutX="15.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Tuổi" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="updateGioiTinhText" layoutX="205.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Giới tính">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="updateSoCCCDText" layoutX="15.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Số CMND/CCCD" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="updateSoDTText" layoutX="205.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Số điện thoại" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="91.0" mnemonicParsing="false" onAction="#updateNhanKhauOnAction" prefHeight="38.0" prefWidth="176.0" style="-fx-background-color: #f4a460;" styleClass="addBtn" text="Cập nhật nhân khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <CheckBox fx:id="isChuHoCBox1" layoutX="395.0" layoutY="15.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" styleClass="field" text="Là chủ hộ" />
+                  <TextField fx:id="updateQuanHeText" layoutX="395.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Quan hệ với chủ hộ" styleClass="field">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="updateMaHoKhauCBox" layoutX="205.0" layoutY="55.0" prefHeight="30.0" prefWidth="160.0" promptText="Mã hộ khẩu" styleClass="comboBox">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="251.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/search_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

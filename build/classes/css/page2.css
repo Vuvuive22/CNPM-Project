@@ -1,0 +1,74 @@
+.background
+{
+    -fx-background-color: white;
+    -fx-border-color:#E6E6E6;
+    -fx-border-radius:30px;
+    -fx-background-radius: 30px;
+}
+#AnchorPane{
+    -fx-background-color: #f6faff;
+}
+.table 
+{
+    -fx-background-color: white;
+    -fx-border-color: #000000;
+    -fx-border-width: 0.5px;
+}
+.table .column-header {
+    -fx-background-color:  #5882FA;
+    -fx-text-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0.5px;
+    
+}
+.table .table-cell
+{
+    -fx-border-width: 0.5; 
+    -fx-border-color: #cccccc;
+}
+
+.form
+{
+    -fx-background-color:  #E0E6F8;
+    -fx-background-radius: 5px;
+}
+
+.addBtn
+{
+    -fx-background-color: #8470ff;
+    -fx-background-radius: 5px;
+}
+
+.field {
+    -fx-font-family: "Arial";
+    -fx-font-size: 15;
+}
+
+.comboBox
+{
+    -fx-text-fill: #c0c0c0;
+    -fx-font-family: "Arial";
+    -fx-font-size: 15;
+}
+.button {
+    -fx-background-color: #2196F3 !important; /* Màu nền mặc định */
+    -fx-text-fill: white !important; /* Màu chữ mặc định */
+    -fx-padding: 5 10 !important; /* Khoảng cách padding mặc định */
+    -fx-border-color: transparent !important; /* Màu đường viền mặc định */
+    -fx-border-radius: 5 !important; /* Bán kính góc bo tròn mặc định */
+    -fx-font-weight: bold !important;
+        -fx-font-size: 12pt !important; /* Cỡ chữ mặc định */
+/* Kiểu chữ bình thường mặc định */
+}
+
+/* Kiểu khi hover qua button */
+.button:hover {
+    -fx-background-color: #4CAF50 !important; /* Màu nền khi hover */
+    -fx-text-fill: white !important;
+    -fx-padding: 5 10 !important; /* Khoảng cách padding mặc định */
+    -fx-border-color: transparent !important; /* Màu đường viền mặc định */
+    -fx-border-radius: 5 !important; /* Bán kính góc bo tròn mặc định */
+    -fx-font-weight: bold !important;
+        -fx-font-size: 12pt !important; /* Cỡ chữ mặc định */
+/* Màu chữ khi hover */
+}

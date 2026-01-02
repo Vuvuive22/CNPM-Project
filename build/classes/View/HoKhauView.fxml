@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="773.5" prefWidth="1214.0" stylesheets="@../css/page.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HoKhauController">
+   <children>
+      <AnchorPane layoutX="7.0" layoutY="10.0" prefHeight="80.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="15.0" prefHeight="50.0" prefWidth="1200.0" text="Hộ khẩu">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="7.0" layoutY="100.0" prefHeight="670.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label layoutX="113.0" layoutY="12.0" text="Tìm kiếm:">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="searchbar" layoutX="285.0" layoutY="12.0" prefHeight="26.0" prefWidth="616.0" promptText="Search..." />
+            <TableView fx:id="householdTableView" layoutX="25.0" layoutY="55.0" prefHeight="270.0" prefWidth="1150.0" styleClass="table">
+              <columns>
+                <TableColumn fx:id="maHKCol" minWidth="150.0" prefWidth="150.0" text="Mã hộ khẩu" />
+                <TableColumn fx:id="diaChiCol" prefWidth="300.0" text="Địa chỉ" />
+                  <TableColumn fx:id="ngayLapCol" prefWidth="150.0" text="Ngày lập" />
+                  <TableColumn fx:id="ngayChuyenDiCol" prefWidth="150.0" text="Ngày chuyển đi" />
+                  <TableColumn fx:id="lyDoChuyenCol" prefWidth="400.0" text="Lý do chuyển" />
+              </columns>
+            </TableView>
+            <AnchorPane layoutX="25.0" layoutY="335.0" prefHeight="320.0" prefWidth="450.0" styleClass="form">
+               <children>
+                  <TextField fx:id="addMaHoKhauText" layoutX="230.0" layoutY="50.0" prefHeight="30.0" prefWidth="200.0" promptText="Ví dụ: HK001" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="270.0" mnemonicParsing="false" onAction="#addHoKhauOnAction" prefHeight="30.0" prefWidth="200.0" styleClass="addBtn" text="Thêm hộ khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label layoutX="18.0" layoutY="50.0" prefHeight="30.0" prefWidth="200.0" text="Mã hộ khẩu       :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="450.0" text="Thêm hộ khẩu mới" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="addDiaChiText" layoutX="230.0" layoutY="95.0" prefHeight="30.0" prefWidth="200.0" promptText="Ví dụ: đường ABC, ngõ D" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="23.0" layoutY="95.0" prefHeight="30.0" prefWidth="200.0" text="Địa chỉ              :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="140.0" prefHeight="30.0" prefWidth="190.0" text="Ngày lập           :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="addLyDoChuyenText" layoutX="230.0" layoutY="230.0" prefHeight="30.0" prefWidth="200.0" promptText="Ví dụ: Công việc" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="22.0" layoutY="230.0" prefHeight="30.0" prefWidth="200.0" text="Lý do chuyển    :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="addNgayLap" layoutX="230.0" layoutY="140.0" prefHeight="30.0" prefWidth="200.0" styleClass="field" />
+                  <Label layoutX="20.0" layoutY="185.0" prefHeight="30.0" prefWidth="200.0" text="Ngày chuyển đi :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="addNgayChuyenDi" layoutX="230.0" layoutY="185.0" prefHeight="30.0" prefWidth="200.0" styleClass="field" />
+               </children>
+            </AnchorPane>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="975.0" layoutY="335.0" mnemonicParsing="false" onAction="#deleteHoKhauOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #9900ff; -fx-background-radius: 5px;" text="Xóa hộ khẩu" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="252.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/search_icon.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="501.0" layoutY="335.0" prefHeight="320.0" prefWidth="450.0" styleClass="form">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="270.0" mnemonicParsing="false" onAction="#updateHoKhauOnAction" prefHeight="30.0" prefWidth="200.0" styleClass="addBtn" text="Cập nhật hộ khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label layoutX="18.0" layoutY="50.0" prefHeight="30.0" prefWidth="200.0" text="Mã hộ khẩu       :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="450.0" text="Cập nhật hộ khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="updateDiaChiText" layoutX="230.0" layoutY="95.0" prefHeight="30.0" prefWidth="200.0" promptText="Ví dụ: đường ABC, ngõ D" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="23.0" layoutY="95.0" prefHeight="30.0" prefWidth="200.0" text="Địa chỉ              :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="140.0" prefHeight="30.0" prefWidth="190.0" text="Ngày lập           :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="updateLyDoChuyenText" layoutX="230.0" layoutY="230.0" prefHeight="30.0" prefWidth="200.0" promptText="Ví dụ: Công việc" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="22.0" layoutY="230.0" prefHeight="30.0" prefWidth="200.0" text="Lý do chuyển    :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="updateNgayLap" layoutX="230.0" layoutY="140.0" prefHeight="30.0" prefWidth="200.0" styleClass="field" />
+                  <Label layoutX="20.0" layoutY="185.0" prefHeight="30.0" prefWidth="200.0" text="Ngày chuyển đi :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="updateNgayChuyenDi" layoutX="230.0" layoutY="185.0" prefHeight="30.0" prefWidth="200.0" styleClass="field" />
+                  <ComboBox fx:id="updateMaHoKhauCBox" layoutX="230.0" layoutY="50.0" prefHeight="30.0" prefWidth="200.0" promptText="Chọn mã hộ khẩu" styleClass="field" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

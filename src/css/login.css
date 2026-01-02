@@ -1,0 +1,73 @@
+/* Modern Login CSS */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
+}
+
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 20, 0, 0, 4);
+    -fx-padding: 40px;
+}
+
+.title-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #102a43;
+}
+
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #627d98;
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #334e68;
+    -fx-padding: 0 0 5px 0;
+}
+
+.text-field {
+    -fx-background-color: #f0f4f8;
+    -fx-background-radius: 6px;
+    -fx-border-color: #bcccdc;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #102a43;
+}
+
+.text-field:focused {
+    -fx-border-color: #334e68;
+    -fx-background-color: white;
+}
+
+.login-button {
+    -fx-background-color: #243b53;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #334e68;
+}
+
+.login-button:pressed {
+    -fx-background-color: #102a43;
+}
+
+.icon-button {
+    -fx-cursor: hand;
+    -fx-opacity: 0.6;
+}
+
+.icon-button:hover {
+    -fx-opacity: 1.0;
+}

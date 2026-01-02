@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="773.5" prefWidth="1214.0" style="-fx-background-color: #f6faff;" stylesheets="@../css/page2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ThongKeController">
+   <children>
+      <AnchorPane layoutX="7.0" layoutY="10.0" prefHeight="80.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-border-color: #BDBDBD; -fx-border-radius: 20;" styleClass="background">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="15.0" prefHeight="50.0" prefWidth="1200.0" text="Thống kê">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="7.0" layoutY="102.0" prefHeight="670.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-border-color: #BDBDBD; -fx-border-radius: 30;" styleClass="background">
+         <children>
+            <AnchorPane layoutX="37.0" layoutY="30.0" prefHeight="380.0" prefWidth="531.0" style="-fx-background-color: #E0E6F8; -fx-border-color: gray; -fx-border-radius: 30; -fx-background-radius: 30;" styleClass="form">
+               <children>
+                  <Label alignment="CENTER" layoutY="10.0" prefHeight="42.0" prefWidth="528.0" text="Số hộ khẩu trong chung" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutY="55.0" prefHeight="42.0" prefWidth="531.0" text="cư hiện tại là:" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="numOfHoKhauLabel" alignment="CENTER" layoutX="277.0" layoutY="141.0" prefHeight="174.0" prefWidth="218.0" text="120" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Bold" size="100.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="27.0" layoutY="128.0">
+                     <image>
+                        <Image url="@../image/house.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="614.0" layoutY="30.0" prefHeight="380.0" prefWidth="562.0" style="-fx-background-color: #5882FA; -fx-border-color: gray; -fx-border-radius: 30; -fx-background-radius: 30;" styleClass="form">
+               <children>
+                  <Label alignment="CENTER" layoutY="10.0" prefHeight="42.0" prefWidth="557.0" text="Số nhân khẩu trong" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutY="55.0" prefHeight="42.0" prefWidth="562.0" text="chung cư hiện tại là:" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="numOfNhanKhauLabel" alignment="CENTER" layoutX="309.0" layoutY="156.0" prefHeight="150.0" prefWidth="216.0" text="120" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Bold" size="100.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="39.0" layoutY="131.0">
+                     <image>
+                        <Image url="@../image/group.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

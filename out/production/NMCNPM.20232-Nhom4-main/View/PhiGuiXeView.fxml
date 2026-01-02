@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="773.5" prefWidth="1214.0" stylesheets="@../css/page2.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PhiGuiXeController">
+   <children>
+      <AnchorPane layoutX="7.0" layoutY="10.0" prefHeight="80.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="15.0" prefHeight="50.0" prefWidth="200.0" text="Phí gửi xe">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="102.0" prefHeight="670.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label layoutX="113.0" layoutY="12.0" text="Tìm kiếm:">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="searchbar" layoutX="285.0" layoutY="12.0" prefHeight="26.0" prefWidth="616.0" promptText="Search..." />
+            <TableView fx:id="feeTableView" layoutX="25.0" layoutY="55.0" prefHeight="270.0" prefWidth="1150.0" styleClass="table">
+              <columns>
+                <TableColumn fx:id="maHoKhauCol" prefWidth="100.0" text="Mã hộ khẩu" />
+                <TableColumn fx:id="phiMoiThangCol" prefWidth="150.0" text="Phí gửi xe mỗi tháng" />
+                  <TableColumn fx:id="thang1Col" prefWidth="75.0" text="Tháng 1" />
+                  <TableColumn fx:id="thang2Col" prefWidth="75.0" text="Tháng 2" />
+                  <TableColumn fx:id="thang3Col" prefWidth="75.0" text="Tháng 3" />
+                  <TableColumn fx:id="thang4Col" prefWidth="75.0" text="Tháng 4" />
+                  <TableColumn fx:id="thang5Col" prefWidth="75.0" text="Tháng 5" />
+                  <TableColumn fx:id="thang6Col" prefWidth="75.0" text="Tháng 6" />
+                  <TableColumn fx:id="thang7Col" prefWidth="75.0" text="Tháng 7" />
+                  <TableColumn fx:id="thang8Col" prefWidth="75.0" text="Tháng 8" />
+                  <TableColumn fx:id="thang9Col" prefWidth="75.0" text="Tháng 9" />
+                  <TableColumn fx:id="thang10Col" prefWidth="75.0" text="Tháng 10" />
+                  <TableColumn fx:id="thang11Col" prefWidth="75.0" text="Tháng 11" />
+                  <TableColumn fx:id="thang12Col" prefWidth="75.0" text="Tháng 12" />
+              </columns>
+            </TableView>
+            <ComboBox fx:id="yearCBox" layoutX="995.0" layoutY="12.0" onAction="#selectYearOnAction" prefWidth="180.0" promptText="Chọn năm hiển thị" styleClass="comboBox" />
+            <AnchorPane layoutX="25.0" layoutY="343.0" prefHeight="313.0" prefWidth="420.0" styleClass="form">
+               <children>
+                  <Label alignment="CENTER" layoutY="10.0" prefHeight="30.0" prefWidth="420.0" text="Số lượng phương tiện mỗi hộ khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="vehicleTableView" layoutX="10.0" layoutY="54.0" prefHeight="240.0" prefWidth="400.0" styleClass="table">
+                    <columns>
+                      <TableColumn fx:id="maHoKhauCol1" prefWidth="100.0" text="Mã hộ khẩu" />
+                      <TableColumn fx:id="soXeMayCol" prefWidth="100.0" text="Số xe máy" />
+                        <TableColumn fx:id="soOToCol" prefWidth="100.0" text="Số ô tô" />
+                        <TableColumn fx:id="soXeDapCol" prefWidth="100.0" text="Số xe đạp" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="460.0" layoutY="343.0" prefHeight="313.6" prefWidth="310.0" styleClass="form">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="260.0" mnemonicParsing="false" onAction="#changeVehicleOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ffff00; -fx-background-radius: 5px;" text="Cập nhật" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ComboBox fx:id="updateMaHoKhauCBox" layoutX="160.0" layoutY="85.0" prefHeight="30.0" prefWidth="140.0" promptText="Mã hộ khẩu" styleClass="comboBox">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Label alignment="CENTER" layoutY="5.0" prefHeight="30.0" prefWidth="310.0" text="Cập nhật số lượng" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="85.0" prefHeight="30.0" prefWidth="140.0" text="Mã hộ khẩu :" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="8.0" layoutY="125.0" prefHeight="30.0" prefWidth="142.0" text="Số xe máy   :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="soXeMayText" layoutX="160.0" layoutY="125.0" prefHeight="30.0" prefWidth="140.0" promptText="Đơn vị: chiếc" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutY="35.0" prefHeight="30.0" prefWidth="310.0" text="phương tiện mỗi hộ khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="165.0" prefHeight="30.0" prefWidth="140.0" text="Số ô tô        :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="soOToText" layoutX="160.0" layoutY="165.0" prefHeight="30.0" prefWidth="140.0" promptText="Đơn vị: chiếc" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="205.0" prefHeight="30.0" prefWidth="140.0" text="Số xe đạp   :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="soXeDapText" layoutX="160.0" layoutY="205.0" prefHeight="30.0" prefWidth="140.0" promptText="Đơn vị: chiếc" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="785.0" layoutY="342.0" prefHeight="314.0" prefWidth="390.0" styleClass="form">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="260.0" mnemonicParsing="false" onAction="#changeFeeOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ffff00; -fx-background-radius: 5px;" text="Cập nhật" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label alignment="CENTER" layoutY="5.0" prefHeight="30.0" prefWidth="390.0" text="Cập nhật tiền gửi" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutY="35.0" prefHeight="30.0" prefWidth="390.0" text="xe của mỗi phương tiện" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="11.0" layoutY="139.0" prefHeight="30.0" prefWidth="175.0" text="Phí gửi xe máy :" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="giaXeMayText" layoutX="191.0" layoutY="139.0" prefHeight="30.0" prefWidth="190.0" promptText="Đơn vị: đồng/xe/tháng" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER_RIGHT" layoutX="8.0" layoutY="219.0" prefHeight="30.0" prefWidth="178.0" text="Phí gửi xe đạp  :" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="giaXeDapText" layoutX="191.0" layoutY="219.0" prefHeight="30.0" prefWidth="190.0" promptText="Đơn vị: đồng/xe/tháng" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="179.0" prefHeight="30.0" prefWidth="177.0" text="Phí gửi ô tô       :" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="giaOToText" layoutX="191.0" layoutY="179.0" prefHeight="30.0" prefWidth="190.0" promptText="Đơn vị: đồng/xe/tháng" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <HBox layoutX="10.0" layoutY="70.0" prefHeight="60.0" prefWidth="370.0" style="-fx-border-width: 1.5px; -fx-border-color: black;">
+                     <children>
+                        <VBox prefHeight="60.0" prefWidth="123.0" style="-fx-border-width: 0px 1px 0px 0px; -fx-border-color: black;">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="123.0" style="-fx-border-width: 0px 0px 1px 0px; -fx-border-color: black;" text="Giá gửi xe máy hiện tại" />
+                              <Label fx:id="giaXeMayLabel" alignment="CENTER" prefHeight="30.0" prefWidth="123.0" text="70000 đồng/xe/tháng" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="123.0" style="-fx-border-width: 0px 1px 0px 0px; -fx-border-color: black;">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="123.0" style="-fx-border-width: 0px 0px 1px 0px; -fx-border-color: black;" text="Giá gửi ô tô hiện tại" />
+                              <Label fx:id="giaOToLabel" alignment="CENTER" prefHeight="30.0" prefWidth="123.0" text="1200000 đồng/xe/tháng" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="123.0" style="-fx-border-width: 0px 1px 0px 0px; -fx-border-color: black;">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="123.0" style="-fx-border-width: 0px 0px 1px 0px; -fx-border-color: black;" text="Giá gửi xe đạp hiện tại" />
+                              <Label fx:id="giaXeDapLabel" alignment="CENTER" prefHeight="30.0" prefWidth="123.0" text="50000 đồng/xe/tháng" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="252.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/search_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

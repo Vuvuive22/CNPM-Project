@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="700.0" stylesheets="@../css/page.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TamVangController">
+   <children>
+      <Label alignment="CENTER" layoutY="30.0" prefHeight="45.0" prefWidth="700.0" text="Danh sách nhân khẩu khai báo tạm vắng" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="150.0" layoutY="390.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="45.0" prefWidth="400.0" styleClass="addBtn" text="Xóa nhân khẩu khỏi danh sách">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tamVangTableView" layoutX="25.0" layoutY="95.0" prefHeight="280.0" prefWidth="650.0" styleClass="table">
+        <columns>
+          <TableColumn fx:id="maTamVangCol" prefWidth="125.0" text="Số giấy tạm vắng" />
+          <TableColumn fx:id="soCCCDCol" minWidth="0.0" prefWidth="200.0" text="Số CMND/CCCD người khai" />
+            <TableColumn fx:id="noiTamTruCol" minWidth="0.0" prefWidth="125.0" text="Nơi tạm trú" />
+            <TableColumn fx:id="tuNgayCol" minWidth="0.0" prefWidth="100.0" text="Từ ngày" />
+            <TableColumn fx:id="denNgayCol" minWidth="0.0" prefWidth="100.0" text="Đến ngày" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

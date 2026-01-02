@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="700.0" stylesheets="@../css/page.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="Controller.ChangePwFormController">
+   <children>
+      <Label alignment="CENTER" layoutY="40.0" prefHeight="45.0" prefWidth="700.0" text="Thay đổi mật khẩu" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="120.0" layoutY="120.0" prefHeight="40.0" prefWidth="400.0" text="Tên đăng nhập:              admin" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="120.0" layoutY="170.0" spacing="10.0">
+         <children>
+            <Label prefHeight="40.0" prefWidth="250.0" text="Nhập mật khẩu cũ:" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="oldPwText" prefHeight="30.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="120.0" layoutY="220.0" spacing="10.0">
+         <children>
+            <Label prefHeight="40.0" prefWidth="250.0" text="Nhập mật khẩu mới:" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="newPwText" prefHeight="30.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="120.0" layoutY="270.0" spacing="10.0">
+         <children>
+            <Label prefHeight="40.0" prefWidth="250.0" text="Xác nhận mật khẩu:" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="confirmedPwText" prefHeight="30.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+      <Button fx:id="changePwBtn" layoutX="225.0" layoutY="350.0" mnemonicParsing="false" onAction="#changePwOnAction" prefHeight="45.0" prefWidth="250.0" styleClass="addBtn" text="Thay đổi mật khẩu">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

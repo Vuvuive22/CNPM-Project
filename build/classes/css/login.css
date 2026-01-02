@@ -1,0 +1,16 @@
+#loginButton
+{
+    -fx-background-color : #1874cd;
+    -fx-background-radius :  30px;
+}
+#loginButton:hover
+{
+    -fx-background-color : #1c86ee;
+    -fx-background-radius :  30px;
+}
+#loginButton:pressed
+{
+    -fx-background-color : #104e8b;
+    -fx-background-radius :  30px;
+}
+

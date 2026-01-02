@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.5" prefWidth="1464.0" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+   <left>
+      <AnchorPane fx:id="sidebarPane" prefHeight="773.5" prefWidth="250.0" style="-fx-background-color: #F2F2F2; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0.0, 0, 4);" BorderPane.alignment="CENTER">
+         <children>
+            <MenuButton fx:id="homeOwnerButton" accessibleRole="BUTTON" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="249.0" style="-fx-padding: 10;" styleClass="dbButton" text="Dân cư">
+               <items>
+                  <MenuItem fx:id="residentButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Nhân khẩu" />
+                  <MenuItem fx:id="householdButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Hộ khẩu" />
+               </items>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/ResidentIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <MenuButton fx:id="feeButton" graphicTextGap="15.0" layoutX="-1.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" style="-fx-padding: 10;" styleClass="dbButton" text="Khoản thu">
+              <items>
+                <MenuItem fx:id="serviceFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Phí dịch vụ" />
+                  <MenuItem fx:id="managementFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Phí quản lý" />
+                <MenuItem fx:id="parkingFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Phí gửi xe" />
+                  <MenuItem fx:id="livingFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Phí sinh hoạt" />
+                  <MenuItem fx:id="voluntaryFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Phí đóng góp" />
+                  <MenuItem fx:id="payButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Thanh toán" />
+                  <MenuItem fx:id="statisticButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="          Thống kê" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/MoneyIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+         </children>
+      </AnchorPane>
+   </left>
+   <top>
+      <AnchorPane prefHeight="50.0" prefWidth="1464.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <MenuButton fx:id="settingButton" graphicTextGap="15.0" layoutX="1264.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" text="Admin" AnchorPane.leftAnchor="1264.0" AnchorPane.rightAnchor="20.0">
+               <items>
+                  <MenuItem fx:id="userInfoButton" mnemonicParsing="false" onAction="#UserInfoOnAction" styleClass="settingItem" text="Thông tin cá nhân" />
+                  <MenuItem fx:id="changePwButton" mnemonicParsing="false" onAction="#ChangePwOnAction" styleClass="settingItem" text="Thay đổi mật khẩu" />
+                  <MenuItem fx:id="logoutButton" mnemonicParsing="false" onAction="#LogoutOnAction" styleClass="settingItem" text="Đăng xuất" />
+               </items>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/AvaIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="21.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="22.0" layoutY="1.0">
+               <image>
+                  <Image url="@../image/logo.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="72.0" layoutY="5.0" prefHeight="40.0" prefWidth="80.0" text="BLUEMOON" textFill="#02089e">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="773.5" prefWidth="1214.0" style="-fx-background-color: #f6faff;" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="773.5" prefWidth="1214.0" stylesheets="@../css/page2.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PhiSinhHoatController">
+   <children>
+      <AnchorPane layoutX="7.0" layoutY="10.0" prefHeight="80.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="15.0" prefHeight="50.0" prefWidth="1200.0" text="Phí sinh hoạt" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="7.0" layoutY="102.0" prefHeight="670.0" prefWidth="1200.0" styleClass="background">
+         <children>
+            <Label layoutX="113.0" layoutY="12.0" text="Tìm kiếm:">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="searchbar" layoutX="285.0" layoutY="12.0" prefHeight="26.0" prefWidth="616.0" promptText="Search..." />
+            <TableView fx:id="feeTableView" layoutX="25.0" layoutY="55.0" prefHeight="270.0" prefWidth="1150.0" styleClass="table">
+              <columns>
+                <TableColumn fx:id="maHoKhauCol" prefWidth="100.0" text="Mã hộ khẩu" />
+                  <TableColumn fx:id="thang1Col" prefWidth="87.5" text="Tháng 1" />
+                  <TableColumn fx:id="thang2Col" prefWidth="87.5" text="Tháng 2" />
+                  <TableColumn fx:id="thang3Col" prefWidth="87.5" text="Tháng 3" />
+                  <TableColumn fx:id="thang4Col" prefWidth="87.5" text="Tháng 4" />
+                  <TableColumn fx:id="thang5Col" prefWidth="87.5" text="Tháng 5" />
+                  <TableColumn fx:id="thang6Col" prefWidth="87.5" text="Tháng 6" />
+                  <TableColumn fx:id="thang7Col" prefWidth="87.5" text="Tháng 7" />
+                  <TableColumn fx:id="thang8Col" prefWidth="87.5" text="Tháng 8" />
+                  <TableColumn fx:id="thang9Col" prefWidth="87.5" text="Tháng 9" />
+                  <TableColumn fx:id="thang10Col" prefWidth="87.5" text="Tháng 10" />
+                  <TableColumn fx:id="thang11Col" prefWidth="87.5" text="Tháng 11" />
+                  <TableColumn fx:id="thang12Col" prefWidth="87.5" text="Tháng 12" />
+              </columns>
+            </TableView>
+            <ComboBox fx:id="yearCBox" layoutX="995.0" layoutY="12.0" onAction="#selectYearOnAction" prefWidth="180.0" promptText="Chọn năm hiển thị" styleClass="comboBox" />
+            <AnchorPane layoutX="25.0" layoutY="343.0" prefHeight="313.0" prefWidth="600.0" styleClass="form">
+               <children>
+                  <HBox alignment="CENTER" layoutY="12.0" prefHeight="30.0" prefWidth="600.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="480.0" text="Phí sinh hoạt của mỗi hộ khẩu trong tháng" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial" size="24.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="monthCBox" onAction="#selectMonthOnAction" prefHeight="26.0" prefWidth="80.0" styleClass="comboBox" />
+                     </children>
+                  </HBox>
+                  <TableView fx:id="updateFeeTableView" layoutX="10.0" layoutY="54.0" prefHeight="251.0" prefWidth="580.0" styleClass="table">
+                    <columns>
+                      <TableColumn fx:id="maHoKhauCol1" prefWidth="130.0" text="Mã hộ khẩu" />
+                      <TableColumn fx:id="tienDienCol" prefWidth="150.0" text="Tiền điện" />
+                        <TableColumn fx:id="tienNuocCol" prefWidth="150.0" text="Tiền nước" />
+                        <TableColumn fx:id="tienInternetCol" prefWidth="150.0" text="Tiền Internet" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="649.0" layoutY="343.0" prefHeight="313.0" prefWidth="526.0" styleClass="form">
+               <children>
+                  <ComboBox fx:id="updateMaHoKhauCBox" layoutX="278.0" layoutY="67.0" prefHeight="30.0" prefWidth="200.0" promptText="Mã hộ khẩu" styleClass="comboBox">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Label alignment="CENTER" layoutY="14.0" prefHeight="30.0" prefWidth="525.0" text="Nhập phí sinh hoạt hàng tháng của 1 hộ khẩu" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="52.0" layoutY="67.0" prefHeight="30.0" prefWidth="210.0" text="Mã hộ khẩu          :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="112.0" prefHeight="30.0" prefWidth="210.0" text="Nhập tiền điện      :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tienDienText" layoutX="278.0" layoutY="112.0" prefHeight="30.0" prefWidth="200.0" promptText="Đơn vị: đồng" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="52.0" layoutY="157.0" prefHeight="30.0" prefWidth="210.0" text="Nhập tiền nước    :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tienNuocText" layoutX="278.0" layoutY="157.0" prefHeight="30.0" prefWidth="200.0" promptText="Đơn vị: đồng" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="49.0" layoutY="202.0" prefHeight="30.0" prefWidth="210.0" text="Nhập tiền internet :">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tienInternetText" layoutX="278.0" layoutY="202.0" prefHeight="30.0" prefWidth="200.0" promptText="Đơn vị: đồng" styleClass="field">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </TextField>
+                  <Button alignment="CENTER" layoutX="163.0" layoutY="260.0" mnemonicParsing="false" onAction="#updateFeeOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #66ccff;" styleClass="addBtn" text="Cập nhật" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="254.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/search_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
