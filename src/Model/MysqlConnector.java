@@ -1017,7 +1017,7 @@ public class MysqlConnector {
     public ObservableList<CapNhatPhiSinhHoat> getCapNhatPhiSinhHoatData(int month, int year) {
         ObservableList<CapNhatPhiSinhHoat> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM CapNhatPhiSinhHoat WHERE MONTH(NgayCapNhat) = ? and YEAR(NgayCapNhat) = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM CapNhatPhiSinhHoat WHERE Thang = ? and Nam = ?");
             ps.setInt(1, month);
             ps.setInt(2, year);
             ResultSet rs = ps.executeQuery();
@@ -1037,14 +1037,14 @@ public class MysqlConnector {
     
     public void addCapNhatPhiSinhHoatData(CapNhatPhiSinhHoat fee, int month, int year) {
         try {
-            LocalDate updateDate = LocalDate.of(year, month, 15); // Use 15th as default day
-            PreparedStatement ps = connection.prepareStatement( "INSERT INTO CapNhatPhiSinhHoat (MaHoKhau, TienDien, TienNuoc, TienInternet, NgayCapNhat) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement( "INSERT INTO CapNhatPhiSinhHoat (MaHoKhau, TienDien, TienNuoc, TienInternet, Thang, Nam) VALUES (?, ?, ?, ?, ?, ?)");
             
             ps.setString(1, fee.getMaHoKhau());
             ps.setFloat(2, fee.getTienDien());
             ps.setFloat(3, fee.getTienNuoc());
             ps.setFloat(4, fee.getTienInternet());
-            ps.setObject(5, updateDate);
+            ps.setInt(5, month);
+            ps.setInt(6, year);
             ps.executeUpdate();
             
             // Update the total in PhiSinhHoat table
@@ -1057,7 +1057,7 @@ public class MysqlConnector {
     
     public boolean isaddCapNhatPhiSinhHoatValidated(String maHoKhau, int month, int year) { //Kiểm tra trường hợp 1 mã hộ khẩu không được phép có 2 dòng dữ liệu trong 1 tháng
         try {
-            String query = "SELECT COUNT(*) FROM CapNhatPhiSinhHoat WHERE MaHoKhau = ? AND MONTH(NgayCapNhat) = ? AND YEAR(NgayCapNhat) = ?";
+            String query = "SELECT COUNT(*) FROM CapNhatPhiSinhHoat WHERE MaHoKhau = ? AND Thang = ? AND Nam = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             
             ps.setString(1, maHoKhau);
@@ -1162,7 +1162,7 @@ public class MysqlConnector {
     //Kiểm tra xem 1 hộ khẩu đã được cập nhật phí sinh hoạt chưa, nếu chưa return false
     public boolean isHavingLivingFee(String maHoKhau, int thang, int nam){  
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS Count FROM CapNhatPhiSinhHoat WHERE MaHoKhau = ? AND MONTH(NgayCapNhat) = ? AND YEAR(NgayCapNhat) = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS Count FROM CapNhatPhiSinhHoat WHERE MaHoKhau = ? AND Thang = ? AND Nam = ?");
             ps.setString(1, maHoKhau);
             ps.setInt(2, thang);
             ps.setInt(3, nam);
@@ -1184,7 +1184,7 @@ public class MysqlConnector {
     public float getLivingFeeThisMonth(String maHoKhau, int thang, int nam) {
         float totalLivingFee = 0.0f;
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT TienDien, TienNuoc, TienInternet FROM CapNhatPhiSinhHoat WHERE MaHoKhau = ? AND MONTH(NgayCapNhat) = ? AND YEAR(NgayCapNhat) = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT TienDien, TienNuoc, TienInternet FROM CapNhatPhiSinhHoat WHERE MaHoKhau = ? AND Thang = ? AND Nam = ?");
             ps.setString(1, maHoKhau);
             ps.setInt(2, thang);
             ps.setInt(3, nam);
