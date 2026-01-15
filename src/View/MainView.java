@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
+ *admin
  * @author Admin
  */
 public class MainView extends Application {
