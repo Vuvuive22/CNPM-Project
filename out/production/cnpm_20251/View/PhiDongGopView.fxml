@@ -40,7 +40,7 @@
                   </Label>
                   <TableView fx:id="feeTableView" layoutX="10.0" layoutY="54.0" prefHeight="282.0" prefWidth="630.0" styleClass="table">
                     <columns>
-                      <TableColumn fx:id="maHoKhauCol" prefWidth="150.0" text="Mã hộ khẩu" />
+                      <TableColumn fx:id="maHoKhauCol" prefWidth="150.0" text="Mã căn hộ" />
                       <TableColumn fx:id="tenPhiCol" prefWidth="160.0" text="Tên phí" />
                         <TableColumn fx:id="soTienCol" prefWidth="160.0" text="Số tiền đóng góp" />
                         <TableColumn fx:id="ngayDongGopCol" prefWidth="160.0" text="Ngày đóng góp" />
@@ -50,7 +50,7 @@
             </AnchorPane>
             <AnchorPane layoutX="575.0" layoutY="430.0" prefHeight="221.0" prefWidth="600.0" styleClass="form">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="173.0" mnemonicParsing="false" onAction="#addFeeOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ff99cc; -fx-background-radius: 5px;" text="Thêm khoản phí" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="173.0" mnemonicParsing="false" onAction="#addFeeOnAction" prefHeight="30.0" prefWidth="200.0" text="Thêm khoản phí" textAlignment="CENTER">
                      <font>
                         <Font name="Arial" size="18.0" />
                      </font>
@@ -103,7 +103,7 @@
                         <TableColumn fx:id="soTienGoiYCol" prefWidth="260.0" text="Số tiền đóng góp gợi ý" />
                      </columns>
                   </TableView>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" layoutY="301.0" mnemonicParsing="false" onAction="#deleteFeeOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffdfa5; -fx-background-radius: 5px;" text="Xóa khoản phí" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" layoutY="301.0" mnemonicParsing="false" onAction="#deleteFeeOnAction" prefHeight="30.0" prefWidth="200.0" text="Xóa khoản phí" textAlignment="CENTER">
                      <font>
                         <Font name="Arial" size="18.0" />
                      </font>

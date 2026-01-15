@@ -4,7 +4,6 @@
  */
 package Model;
 
-
 public class NhanKhauModel {
     private String maHoKhau;
     private String hoTen;
@@ -15,8 +14,10 @@ public class NhanKhauModel {
     private String QuanHe;
     private boolean isTamTru;
     private boolean isTamVang;
-    
-    public NhanKhauModel(String maHoKhau, String hoTen, int tuoi, String gioiTinh, String CCCD, String SoDT, String QuanHe, boolean IsTamVang, boolean IsTamTru) {
+    private String userName; // New field for linked User account
+
+    public NhanKhauModel(String maHoKhau, String hoTen, int tuoi, String gioiTinh, String CCCD, String SoDT,
+            String QuanHe, boolean IsTamVang, boolean IsTamTru) {
         this.maHoKhau = maHoKhau;
         this.hoTen = hoTen;
         this.tuoi = tuoi;
@@ -27,7 +28,14 @@ public class NhanKhauModel {
         this.isTamVang = IsTamVang;
         this.isTamTru = IsTamTru;
     }
-    
+
+    // Constructor with userName
+    public NhanKhauModel(String maHoKhau, String hoTen, int tuoi, String gioiTinh, String CCCD, String SoDT,
+            String QuanHe, boolean IsTamVang, boolean IsTamTru, String userName) {
+        this(maHoKhau, hoTen, tuoi, gioiTinh, CCCD, SoDT, QuanHe, IsTamVang, IsTamTru);
+        this.userName = userName;
+    }
+
     public String getMaHoKhau() {
         return maHoKhau;
     }
@@ -83,24 +91,28 @@ public class NhanKhauModel {
     public void setQuanHe(String QuanHe) {
         this.QuanHe = QuanHe;
     }
-    
+
     public boolean isTamTru() {
         return isTamTru;
     }
 
-    
     public void setTamTru(boolean tamTru) {
         this.isTamTru = tamTru;
     }
 
-    
     public boolean isTamVang() {
         return isTamVang;
     }
 
-    
     public void setTamVang(boolean tamVang) {
         this.isTamVang = tamVang;
     }
-    
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

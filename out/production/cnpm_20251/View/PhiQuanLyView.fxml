@@ -62,7 +62,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="changeFeeText" layoutX="350.0" layoutY="55.0" prefHeight="30.0" prefWidth="225.0" promptText="Đơn vi: đồng/m2/tháng" styleClass="field" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="99.0" mnemonicParsing="false" onAction="#changeFeeOnAction" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #63b8ff; -fx-background-radius: 5px;" text="Lưu thay đổi" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="99.0" mnemonicParsing="false" onAction="#changeFeeOnAction" prefHeight="30.0" prefWidth="160.0" text="Lưu thay đổi" textAlignment="CENTER">
                      <font>
                         <Font name="Arial" size="18.0" />
                      </font>
@@ -73,58 +73,7 @@
                </children>
             </AnchorPane>
             <ComboBox fx:id="yearCBox" layoutX="995.0" layoutY="12.0" onAction="#selectYearOnAction" prefWidth="180.0" promptText="Chọn năm hiển thị" styleClass="comboBox" />
-            <AnchorPane layoutX="25.0" layoutY="343.0" prefHeight="313.0" prefWidth="510.0" styleClass="form">
-               <children>
-                  <Label fx:id="feeLabel2" alignment="CENTER" layoutY="12.0" prefHeight="30.0" prefWidth="510.0" text="Diện tích căn hộ mỗi hộ khẩu" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="areaTableView" layoutX="10.0" layoutY="54.0" prefHeight="240.0" prefWidth="490.0" styleClass="table">
-                    <columns>
-                      <TableColumn fx:id="maHoKhauCol1" prefWidth="140.0" text="Mã hộ khẩu" />
-                      <TableColumn fx:id="dienTichHoCol" prefWidth="350.0" text="Tổng diện tích căn hộ (m2)" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="559.0" layoutY="343.0" prefHeight="150.0" prefWidth="615.0" styleClass="form">
-               <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="425.0" layoutY="83.0" mnemonicParsing="false" onAction="#changeAreaOnAction" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #ffdfa5; -fx-background-radius: 5px;" text="Cập nhật" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <ComboBox fx:id="updateMaHoKhauCBox" layoutX="200.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" promptText="Mã hộ khẩu" styleClass="comboBox">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ComboBox>
-                  <Label alignment="CENTER" layoutY="12.0" prefHeight="30.0" prefWidth="615.0" text="Cập nhật diện tích hộ khẩu" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="20.0" layoutY="60.0" prefHeight="30.0" prefWidth="170.0" text="Mã hộ khẩu    :">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="20.0" layoutY="108.0" prefHeight="30.0" prefWidth="170.0" text="Nhập diện tích:">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="dienTichHoText" layoutX="200.0" layoutY="108.0" prefHeight="30.0" prefWidth="200.0" promptText="Đơn vị: m2" styleClass="field">
-                     <font>
-                        <Font name="Arial" size="20.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
+
             <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="254.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/search_icon.png" />

@@ -1,34 +1,30 @@
-
 package Model;
 
 import java.time.LocalDate;
 
 public class HoKhauModel {
     private String maHoKhau;
-    private String diaChi;
     private LocalDate ngayLap;
-    private LocalDate ngayChuyenDi;
-    private String lyDoChuyen;
     private float dienTichHo;
+    private String chuHo; // Tên chủ hộ
     private int soXeMay;
     private int soOTo;
     private int soXeDap;
-    
-    
-    public HoKhauModel(String maHoKhau, String diaChi, LocalDate ngayLap, LocalDate ngayChuyenDi, String lyDoChuyen) {
+
+    public HoKhauModel(String maHoKhau, LocalDate ngayLap, float dienTichHo, String chuHo) {
         this.maHoKhau = maHoKhau;
-        this.diaChi = diaChi;
         this.ngayLap = ngayLap;
-        this.ngayChuyenDi = ngayChuyenDi;
-        this.lyDoChuyen = lyDoChuyen;
+        this.dienTichHo = dienTichHo;
+        this.chuHo = chuHo;
     }
-    
-    public HoKhauModel(String maHoKhau, float dienTichHo){
+
+    public HoKhauModel(String maHoKhau, float dienTichHo) {
         this.maHoKhau = maHoKhau;
         this.dienTichHo = dienTichHo;
     }
-    
-    public HoKhauModel(String maHoKhau, int soXeMay, int soOTo, int soXeDap){
+
+    // Constructor used for fees
+    public HoKhauModel(String maHoKhau, int soXeMay, int soOTo, int soXeDap) {
         this.maHoKhau = maHoKhau;
         this.soXeMay = soXeMay;
         this.soOTo = soOTo;
@@ -44,14 +40,6 @@ public class HoKhauModel {
         this.maHoKhau = maHoKhau;
     }
 
-    public String getDiaChi() {
-        return diaChi;
-    }
-
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
-    
     public LocalDate getNgayLap() {
         return ngayLap;
     }
@@ -60,22 +48,6 @@ public class HoKhauModel {
         this.ngayLap = ngayLap;
     }
 
-    public LocalDate getNgayChuyenDi() {
-        return ngayChuyenDi;
-    }
-
-    public void setNgayChuyenDi(LocalDate ngayChuyenDi) {
-        this.ngayChuyenDi = ngayChuyenDi;
-    }
-
-    public String getLyDoChuyen() {
-        return lyDoChuyen;
-    }
-
-    public void setLyDoChuyen(String lydoChuyen) {
-        this.lyDoChuyen = lydoChuyen;
-    }
-    
     public float getDienTichHo() {
         return dienTichHo;
     }
@@ -83,7 +55,15 @@ public class HoKhauModel {
     public void setDienTichHo(float dienTichHo) {
         this.dienTichHo = dienTichHo;
     }
-    
+
+    public String getChuHo() {
+        return chuHo;
+    }
+
+    public void setChuHo(String chuHo) {
+        this.chuHo = chuHo;
+    }
+
     public int getSoXeMay() {
         return soXeMay;
     }

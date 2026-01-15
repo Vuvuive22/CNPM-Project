@@ -64,7 +64,7 @@
                   </HBox>
                   <TableView fx:id="updateFeeTableView" layoutX="10.0" layoutY="54.0" prefHeight="251.0" prefWidth="580.0" styleClass="table">
                     <columns>
-                      <TableColumn fx:id="maHoKhauCol1" prefWidth="130.0" text="Mã hộ khẩu" />
+                      <TableColumn fx:id="maHoKhauCol1" prefWidth="130.0" text="Mã căn hộ" />
                       <TableColumn fx:id="tienDienCol" prefWidth="150.0" text="Tiền điện" />
                         <TableColumn fx:id="tienNuocCol" prefWidth="150.0" text="Tiền nước" />
                         <TableColumn fx:id="tienInternetCol" prefWidth="150.0" text="Tiền Internet" />
@@ -74,7 +74,7 @@
             </AnchorPane>
             <AnchorPane layoutX="649.0" layoutY="343.0" prefHeight="313.0" prefWidth="526.0" styleClass="form">
                <children>
-                  <ComboBox fx:id="updateMaHoKhauCBox" layoutX="278.0" layoutY="67.0" prefHeight="30.0" prefWidth="200.0" promptText="Mã hộ khẩu" styleClass="comboBox">
+                  <ComboBox fx:id="updateMaHoKhauCBox" layoutX="278.0" layoutY="67.0" prefHeight="30.0" prefWidth="200.0" promptText="Mã căn hộ" styleClass="comboBox">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -84,7 +84,7 @@
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="52.0" layoutY="67.0" prefHeight="30.0" prefWidth="210.0" text="Mã hộ khẩu          :">
+                  <Label layoutX="52.0" layoutY="67.0" prefHeight="30.0" prefWidth="210.0" text="Mã căn hộ          :">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -119,7 +119,7 @@
                         <Font name="Arial" size="20.0" />
                      </font>
                   </TextField>
-                  <Button alignment="CENTER" layoutX="163.0" layoutY="260.0" mnemonicParsing="false" onAction="#updateFeeOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #66ccff;" styleClass="addBtn" text="Cập nhật" textAlignment="CENTER">
+                  <Button alignment="CENTER" layoutX="163.0" layoutY="260.0" mnemonicParsing="false" onAction="#updateFeeOnAction" prefHeight="40.0" prefWidth="200.0" text="Cập nhật" textAlignment="CENTER">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>

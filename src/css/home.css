@@ -5,34 +5,34 @@
 
 /* Sidebar Styling */
 #sidebarPane {
-    -fx-background-color: #102a43;
-    /* Dark Blue */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+    -fx-background-color: #E3F2FD;
+    /* Light Blue */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
 }
 
 .dbButton {
     -fx-background-color: transparent;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #102a43;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 10px 20px;
     -fx-cursor: hand;
-    -fx-mark-color: #ffffff;
+    -fx-mark-color: #102a43;
 }
 
 /* Explicitly target the label inside to override any skin defaults */
 .dbButton>.label {
-    -fx-text-fill: #ffffff !important;
+    -fx-text-fill: #102a43 !important;
 }
 
 .dbButton:hover {
-    -fx-background-color: #243b53;
-    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.1), 10, 0, 0, 0);
+    -fx-background-color: #BBDEFB;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
 }
 
 .dbButton:showing {
-    -fx-background-color: #243b53;
+    -fx-background-color: #BBDEFB;
 }
 
 .dbButton>.arrow-button {
@@ -40,12 +40,12 @@
 }
 
 .dbButton>.arrow-button>.arrow {
-    -fx-background-color: white;
+    -fx-background-color: #102a43;
 }
 
 /* Sidebar Popup Menus (The "Dropdowns") */
 .context-menu {
-    -fx-background-color: #243b53;
+    -fx-background-color: #BBDEFB;
     -fx-background-radius: 0 0 6px 6px;
     -fx-shadow-highlight-color: transparent;
     -fx-padding: 0;
@@ -58,7 +58,7 @@
 /* Menu Items inside the popup */
 .dbItem {
     -fx-background-color: transparent;
-    -fx-text-fill: #d9e2ec;
+    -fx-text-fill: #102a43;
     -fx-font-size: 14px;
     -fx-padding: 10px 20px;
     -fx-pref-width: 240px;
@@ -66,20 +66,20 @@
 }
 
 .dbItem:hover {
-    -fx-background-color: #334e68;
-    -fx-text-fill: white;
+    -fx-background-color: #90CAF9;
+    -fx-text-fill: #000000;
 }
 
 .dbItem:focused {
-    -fx-background-color: #334e68;
+    -fx-background-color: #90CAF9;
 }
 
 .dbItem .label {
-    -fx-text-fill: #d9e2ec;
+    -fx-text-fill: #102a43;
 }
 
 .dbItem:hover .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #000000;
 }
 
 /* Header Styling */

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddNhanKhauController">
+   <children>
+      <Label layoutX="195.0" layoutY="14.0" text="Thêm Nhân Khẩu">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="addHoTenText" layoutX="33.0" layoutY="68.0" prefHeight="30.0" prefWidth="250.0" promptText="Họ và tên" />
+      <TextField fx:id="addTuoiText" layoutX="33.0" layoutY="116.0" prefHeight="30.0" prefWidth="250.0" promptText="Tuổi" />
+      <TextField fx:id="addGioiTinhText" layoutX="316.0" layoutY="68.0" prefHeight="30.0" prefWidth="250.0" promptText="Giới tính" />
+      <TextField fx:id="addSoCCCDText" layoutX="33.0" layoutY="163.0" prefHeight="30.0" prefWidth="250.0" promptText="Số CMND/CCCD" />
+      <TextField fx:id="addSoDTText" layoutX="316.0" layoutY="163.0" prefHeight="30.0" prefWidth="250.0" promptText="Số điện thoại" />
+      <ComboBox fx:id="addMaHoKhauCBox" layoutX="316.0" layoutY="116.0" prefHeight="30.0" prefWidth="250.0" promptText="Mã căn hộ" />
+      <TextField fx:id="addQuanHeText" layoutX="33.0" layoutY="210.0" prefHeight="30.0" prefWidth="250.0" promptText="Quan hệ với chủ hộ" />
+      <CheckBox fx:id="isChuHoCBox" layoutX="316.0" layoutY="210.0" mnemonicParsing="false" text="Là chủ hộ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </CheckBox>
+      <Button layoutX="225.0" layoutY="255.0" mnemonicParsing="false" onAction="#addNhanKhauOnAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #87fcae;" text="Thêm mới" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TamTruFormController">
+   <children>
+      <Label layoutX="100.0" layoutY="14.0" text="Khai Báo Tạm Trú">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="soCCCDText" layoutX="50.0" layoutY="62.0" prefHeight="30.0" prefWidth="300.0" promptText="Số CMND/CCCD" />
+      <TextField fx:id="maTamTruText" layoutX="50.0" layoutY="103.0" prefHeight="30.0" prefWidth="300.0" promptText="Mã tạm trú" />
+      <TextField fx:id="lyDoText" layoutX="50.0" layoutY="222.0" prefHeight="30.0" prefWidth="300.0" promptText="Lý do" />
+      <DatePicker fx:id="tuNgayPicker" layoutX="50.0" layoutY="144.0" prefHeight="30.0" prefWidth="140.0" promptText="Từ ngày" />
+      <DatePicker fx:id="denNgayPicker" layoutX="210.0" layoutY="144.0" prefHeight="30.0" prefWidth="140.0" promptText="Đến ngày" />
+      <Button layoutX="125.0" layoutY="262.0" mnemonicParsing="false" onAction="#confirmOnAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #87fcae;" text="Xác nhận" />
+   </children>
+</AnchorPane>

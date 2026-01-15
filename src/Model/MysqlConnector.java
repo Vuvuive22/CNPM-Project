@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Statement;
 import java.time.LocalDate;
 
 //Using Singleton Pattern to optimize this class
@@ -20,7 +22,8 @@ public class MysqlConnector {
     private final String password = "";
 
     private MysqlConnector() {
-        // Private constructor to prevent external instantiation.
+        // Initialize Database Schema
+        Database.SetupDatabase.setup();
     }
 
     public static MysqlConnector getInstance() {
@@ -221,7 +224,7 @@ public class MysqlConnector {
             PreparedStatement ps = connection.prepareStatement("select * from NhanKhau");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new NhanKhauModel(
+                NhanKhauModel nk = new NhanKhauModel(
                         rs.getString("MaHoKhau"),
                         rs.getString("HoTen"),
                         Integer.parseInt(rs.getString("Tuoi")),
@@ -230,7 +233,15 @@ public class MysqlConnector {
                         rs.getString("SoDT"),
                         rs.getString("QuanHe"),
                         Integer.parseInt(rs.getString("TamVang")) == 1,
-                        Integer.parseInt(rs.getString("TamTru")) == 1));
+                        Integer.parseInt(rs.getString("TamTru")) == 1);
+                try {
+                    String uName = rs.getString("UserName");
+                    if (uName != null)
+                        nk.setUserName(uName);
+                } catch (SQLException e) {
+                    // Column might not exist yet if setup failed or running old version
+                }
+                list.add(nk);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -410,15 +421,17 @@ public class MysqlConnector {
     public ObservableList<HoKhauModel> getHoKhauData() {
         ObservableList<HoKhauModel> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM HoKhau");
+            String sql = "SELECT H.MaHoKhau, H.NgayLap, H.DienTichHo, NK.HoTen as ChuHo " +
+                    "FROM HoKhau H " +
+                    "LEFT JOIN NhanKhau NK ON H.MaHoKhau = NK.MaHoKhau AND NK.QuanHe = 'Chủ Hộ'";
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new HoKhauModel(
                         rs.getString("MaHoKhau"),
-                        rs.getString("DiaChi"),
                         rs.getObject("NgayLap", LocalDate.class),
-                        rs.getObject("NgayChuyenDi", LocalDate.class),
-                        rs.getString("LyDoChuyen")));
+                        rs.getFloat("DienTichHo"),
+                        rs.getString("ChuHo")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -454,16 +467,22 @@ public class MysqlConnector {
         return numberOfHoKhau;
     }
 
-    public void addHoKhauData(HoKhauModel newHoKhau) { // Có trigger để thêm dữ liệu các bảng khác rồi
+    public void addHoKhauData(HoKhauModel newHoKhau) {
         try {
-            String query = "INSERT INTO HoKhau (MaHoKhau, DiaChi, NgayLap, NgayChuyenDi, LyDoChuyen) VALUES (?, ?, ?, ?, ?)";
+            // Note: Trigger exists to populate fee tables.
+            // DiaChi is NOT NULL in DB, so we must provide a value (empty string for now as
+            // it's deprecated in UI)
+            String query = "INSERT INTO HoKhau (MaHoKhau, NgayLap, DienTichHo, DiaChi) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
 
             ps.setString(1, newHoKhau.getMaHoKhau());
-            ps.setString(2, newHoKhau.getDiaChi());
-            ps.setObject(3, newHoKhau.getNgayLap());
-            ps.setObject(4, newHoKhau.getNgayChuyenDi());
-            ps.setString(5, newHoKhau.getLyDoChuyen());
+            if (newHoKhau.getNgayLap() != null) {
+                ps.setDate(2, java.sql.Date.valueOf(newHoKhau.getNgayLap()));
+            } else {
+                ps.setDate(2, null);
+            }
+            ps.setFloat(3, newHoKhau.getDienTichHo());
+            ps.setString(4, ""); // DiaChi default
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -473,14 +492,12 @@ public class MysqlConnector {
 
     public void updateHoKhauData(HoKhauModel updatedHoKhau) {
         try {
-            String query = "UPDATE HoKhau SET DiaChi = ?, NgayLap = ?, NgayChuyenDi = ?, LyDoChuyen = ? WHERE MaHoKhau = ?";
+            String query = "UPDATE HoKhau SET NgayLap = ?, DienTichHo = ? WHERE MaHoKhau = ?";
             PreparedStatement ps = connection.prepareStatement(query);
 
-            ps.setString(1, updatedHoKhau.getDiaChi());
-            ps.setObject(2, updatedHoKhau.getNgayLap());
-            ps.setObject(3, updatedHoKhau.getNgayChuyenDi());
-            ps.setString(4, updatedHoKhau.getLyDoChuyen());
-            ps.setString(5, updatedHoKhau.getMaHoKhau());
+            ps.setObject(1, updatedHoKhau.getNgayLap());
+            ps.setFloat(2, updatedHoKhau.getDienTichHo());
+            ps.setString(3, updatedHoKhau.getMaHoKhau());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1261,6 +1278,83 @@ public class MysqlConnector {
             ps.setInt(3, nam);
 
             ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // --- NEW LOGIC for Resident Mapping and Movements ---
+
+    public boolean linkUserToResident(String username, String cccd) {
+        try {
+            // Check if user already linked
+            PreparedStatement check = connection.prepareStatement("SELECT 1 FROM NhanKhau WHERE UserName = ?");
+            check.setString(1, username);
+            if (check.executeQuery().next()) {
+                return false; // User already linked
+            }
+
+            // Link
+            PreparedStatement ps = connection
+                    .prepareStatement("UPDATE NhanKhau SET UserName = ? WHERE SoCMND_CCCD = ?");
+            ps.setString(1, username);
+            ps.setString(2, cccd);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void createPopulationMovement(PopulationMovementModel movement) {
+        try {
+            String query = "INSERT INTO population_movements (apt_id, resident_id, type, status, approved_by) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, movement.getAptId());
+            ps.setString(2, movement.getResidentId());
+            ps.setString(3, movement.getType());
+            ps.setString(4, movement.getStatus());
+            ps.setString(5, movement.getApprovedBy());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void approveMovement(int movementId, boolean approved, String adminName) {
+        try {
+            String status = approved ? "approved" : "rejected";
+            String query = "UPDATE population_movements SET status = ?, approved_by = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, status);
+            ps.setString(2, adminName);
+            ps.setInt(3, movementId);
+            ps.executeUpdate();
+
+            if (approved) {
+                // Trigger logic based on type
+                // Fetch movement details
+                PreparedStatement psGet = connection
+                        .prepareStatement("SELECT * FROM population_movements WHERE id = ?");
+                psGet.setInt(1, movementId);
+                ResultSet rs = psGet.executeQuery();
+                if (rs.next()) {
+                    String type = rs.getString("type");
+                    String residentId = rs.getString("resident_id");
+                    String aptId = rs.getString("apt_id");
+
+                    if ("move_out".equals(type)) {
+                        // Update NhanKhau to remove from household or mark inactive
+                        Statement stmt = connection.createStatement();
+                        stmt.executeUpdate(
+                                "UPDATE NhanKhau SET MaHoKhau = NULL WHERE SoCMND_CCCD = '" + residentId + "'");
+                    } else if ("move_in".equals(type)) {
+                        Statement stmt = connection.createStatement();
+                        stmt.executeUpdate("UPDATE NhanKhau SET MaHoKhau = '" + aptId + "' WHERE SoCMND_CCCD = '"
+                                + residentId + "'");
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

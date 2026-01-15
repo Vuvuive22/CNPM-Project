@@ -85,7 +85,7 @@ public class PhiSinhHoatController {
 
     @FXML
     private TextField tienNuocText;
- 
+
     @FXML
     private TableView<CapNhatPhiSinhHoat> updateFeeTableView;
 
@@ -94,18 +94,18 @@ public class PhiSinhHoatController {
 
     @FXML
     private ComboBox<Integer> yearCBox;
-    
+
     private ObservableList<PhiSinhHoatModel> feeList;
-    
-    private ObservableList<CapNhatPhiSinhHoat> updateFeeList; 
-    
+
+    private ObservableList<CapNhatPhiSinhHoat> updateFeeList;
+
     private final LocalDate currentDate = LocalDate.now();
-    
+
     @FXML
-    public void initialize(){
+    public void initialize() {
         initializeComboBox();
         loadFeeData(yearCBox.getValue());
-        loadUpdateFeeData(monthCBox.getValue(), yearCBox.getValue());    
+        loadUpdateFeeData(monthCBox.getValue(), yearCBox.getValue());
         initializeSearchbar();
     }
 
@@ -115,7 +115,7 @@ public class PhiSinhHoatController {
         loadFeeData(year);
         feeTableView.refresh();
     }
-    
+
     @FXML
     public void selectMonthOnAction(ActionEvent event) {
         Integer month = monthCBox.getValue();
@@ -123,7 +123,7 @@ public class PhiSinhHoatController {
         loadUpdateFeeData(month, year);
         updateFeeTableView.refresh();
     }
-    
+
     @FXML
     public void updateFeeOnAction(ActionEvent event) {
         String maHoKhau = updateMaHoKhauCBox.getValue();
@@ -133,27 +133,31 @@ public class PhiSinhHoatController {
         int selectedMonth = monthCBox.getValue();
         int selectedYear = yearCBox.getValue();
 
-        if(ControllerUtil.isEmptyOrNull(maHoKhau) || ControllerUtil.isEmptyOrNull(String.valueOf(tienDien)) || ControllerUtil.isEmptyOrNull(String.valueOf(tienNuoc)) || ControllerUtil.isEmptyOrNull(String.valueOf(tienInternet))){
+        if (ControllerUtil.isEmptyOrNull(maHoKhau) || ControllerUtil.isEmptyOrNull(String.valueOf(tienDien))
+                || ControllerUtil.isEmptyOrNull(String.valueOf(tienNuoc))
+                || ControllerUtil.isEmptyOrNull(String.valueOf(tienInternet))) {
             ControllerUtil.showErrorMessage("Vui lòng nhập đầy đủ các trường trong form!");
             return;
         }
-        if(tienDien <= 0){
+        if (tienDien <= 0) {
             ControllerUtil.showErrorMessage("Tiền điện không hợp lệ. Vui lòng nhập lại!");
             return;
-        }
-        else if(tienNuoc <= 0){
+        } else if (tienNuoc <= 0) {
             ControllerUtil.showErrorMessage("Tiền nước không hợp lệ. Vui lòng nhập lại!");
             return;
-        }
-        else if(tienInternet <= 0){
+        } else if (tienInternet <= 0) {
             ControllerUtil.showErrorMessage("Tiền internet không hợp lệ. Vui lòng nhập lại!");
             return;
         }
-        boolean confirmed = ControllerUtil.showConfirmationDialog("Xác nhận cập nhật phí sinh hoạt", "Bạn có chắc chắn muốn cập nhật phí sinh hoạt tháng " + selectedMonth + " năm " + selectedYear + " của hộ khẩu này không?");
-        if(confirmed){
-            boolean check = MysqlConnector.getInstance().isaddCapNhatPhiSinhHoatValidated(maHoKhau, selectedMonth, selectedYear);
-            if(check){
-                ControllerUtil.showErrorMessage("Tiền sinh hoạt của hộ khẩu có mã " + maHoKhau + " đã được cập nhật cho tháng này. Vui lòng chọn lại mã hộ khẩu khác!");
+        boolean confirmed = ControllerUtil.showConfirmationDialog("Xác nhận cập nhật phí sinh hoạt",
+                "Bạn có chắc chắn muốn cập nhật phí sinh hoạt tháng " + selectedMonth + " năm " + selectedYear
+                        + " của hộ khẩu này không?");
+        if (confirmed) {
+            boolean check = MysqlConnector.getInstance().isaddCapNhatPhiSinhHoatValidated(maHoKhau, selectedMonth,
+                    selectedYear);
+            if (check) {
+                ControllerUtil.showErrorMessage("Tiền sinh hoạt của hộ khẩu có mã " + maHoKhau
+                        + " đã được cập nhật cho tháng này. Vui lòng chọn lại mã căn hộ khác!");
                 return;
             }
             CapNhatPhiSinhHoat fee = new CapNhatPhiSinhHoat(maHoKhau, tienDien, tienNuoc, tienInternet);
@@ -167,7 +171,7 @@ public class PhiSinhHoatController {
             tienInternetText.clear();
         }
     }
-    
+
     private void loadFeeData(int year) {
         maHoKhauCol.setCellValueFactory(new PropertyValueFactory<>("maHoKhau"));
         thang1Col.setCellValueFactory(new PropertyValueFactory<>("thang1"));
@@ -183,75 +187,75 @@ public class PhiSinhHoatController {
         thang11Col.setCellValueFactory(new PropertyValueFactory<>("thang11"));
         thang12Col.setCellValueFactory(new PropertyValueFactory<>("thang12"));
 
-        feeList = MysqlConnector.getInstance().getPhiSinhHoatData(year); 
+        feeList = MysqlConnector.getInstance().getPhiSinhHoatData(year);
         feeTableView.setItems(feeList);
     }
-    
-    private void loadUpdateFeeData(int month, int year){
+
+    private void loadUpdateFeeData(int month, int year) {
         maHoKhauCol1.setCellValueFactory(new PropertyValueFactory<>("maHoKhau"));
-        tienDienCol.setCellValueFactory(new PropertyValueFactory<>("tienDien"));               
+        tienDienCol.setCellValueFactory(new PropertyValueFactory<>("tienDien"));
         tienNuocCol.setCellValueFactory(new PropertyValueFactory<>("tienNuoc"));
         tienInternetCol.setCellValueFactory(new PropertyValueFactory<>("tienInternet"));
 
         updateFeeList = MysqlConnector.getInstance().getCapNhatPhiSinhHoatData(month, year);
         updateFeeTableView.setItems(updateFeeList);
     }
-    
-    private void initializeComboBox(){
+
+    private void initializeComboBox() {
         yearCBox.getItems().addAll(2023, 2024, 2025, 2026);
         yearCBox.setValue(currentDate.getYear());
-        monthCBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11, 12);
+        monthCBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
         monthCBox.setValue(currentDate.getMonthValue());
-        
+
         ObservableList<String> observableMaHoKhauList = MysqlConnector.getInstance().getMaHoKhauData();
         updateMaHoKhauCBox.setItems(observableMaHoKhauList);
     }
-    
-    private void initializeSearchbar(){
+
+    private void initializeSearchbar() {
         FilteredList<PhiSinhHoatModel> filteredData = new FilteredList<>(feeList, b -> true);
         searchbar.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(PhiSinhHoatModel -> {
-                if(newValue.isEmpty() || newValue.isBlank()){
+                if (newValue.isEmpty() || newValue.isBlank()) {
                     return true;
                 }
                 String searchWord = newValue.toLowerCase();
-                
+
                 return PhiSinhHoatModel.getMaHoKhau().toLowerCase().contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang1()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang2()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang3()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang4()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang5()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang6()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang7()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang8()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang9()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang10()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang11()).contains(searchWord)
-                || String.valueOf(PhiSinhHoatModel.getThang12()).contains(searchWord);
+                        || String.valueOf(PhiSinhHoatModel.getThang1()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang2()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang3()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang4()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang5()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang6()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang7()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang8()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang9()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang10()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang11()).contains(searchWord)
+                        || String.valueOf(PhiSinhHoatModel.getThang12()).contains(searchWord);
             });
         });
         SortedList<PhiSinhHoatModel> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(feeTableView.comparatorProperty());
         feeTableView.setItems(sortedData);
-        
+
         FilteredList<CapNhatPhiSinhHoat> filteredData1 = new FilteredList<>(updateFeeList, b -> true);
         searchbar.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData1.setPredicate(CapNhatPhiSinhHoat -> {
-                if(newValue.isEmpty() || newValue.isBlank()){
+                if (newValue.isEmpty() || newValue.isBlank()) {
                     return true;
                 }
                 String searchWord = newValue.toLowerCase();
-                
+
                 return CapNhatPhiSinhHoat.getMaHoKhau().toLowerCase().contains(searchWord)
-                || String.valueOf(CapNhatPhiSinhHoat.getTienDien()).contains(searchWord)
-                || String.valueOf(CapNhatPhiSinhHoat.getTienNuoc()).contains(searchWord)
-                || String.valueOf(CapNhatPhiSinhHoat.getTienInternet()).contains(searchWord);
+                        || String.valueOf(CapNhatPhiSinhHoat.getTienDien()).contains(searchWord)
+                        || String.valueOf(CapNhatPhiSinhHoat.getTienNuoc()).contains(searchWord)
+                        || String.valueOf(CapNhatPhiSinhHoat.getTienInternet()).contains(searchWord);
             });
         });
         SortedList<CapNhatPhiSinhHoat> sortedData1 = new SortedList<>(filteredData1);
         sortedData1.comparatorProperty().bind(updateFeeTableView.comparatorProperty());
         updateFeeTableView.setItems(sortedData1);
     }
-    
+
 }

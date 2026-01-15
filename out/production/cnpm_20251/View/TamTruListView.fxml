@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TamTruListController">
+   <children>
+      <TableView fx:id="tamTruTable" layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="580.0">
+        <columns>
+          <TableColumn fx:id="maTamTruCol" prefWidth="100.0" text="Mã tạm trú" />
+          <TableColumn fx:id="soCCCDCol" prefWidth="120.0" text="Số CCCD" />
+            <TableColumn fx:id="tuNgayCol" prefWidth="100.0" text="Từ ngày" />
+            <TableColumn fx:id="denNgayCol" prefWidth="100.0" text="Đến ngày" />
+            <TableColumn fx:id="lyDoCol" prefWidth="150.0" text="Lý do" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
