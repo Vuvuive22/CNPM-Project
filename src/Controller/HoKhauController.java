@@ -2,162 +2,139 @@ package Controller;
 
 import Model.HoKhauModel;
 import Model.MysqlConnector;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 public class HoKhauController {
-
-    @FXML
-    private TextField addMaHoKhauText;
-    @FXML
-    private TextField addDienTichText;
-    @FXML
-    private DatePicker addNgayLap;
-
-    @FXML
-    private ComboBox<String> updateMaHoKhauCBox;
-    @FXML
-    private TextField updateDienTichText;
-    @FXML
-    private DatePicker updateNgayLap;
 
     @FXML
     private TableView<HoKhauModel> householdTableView;
     @FXML
     private TableColumn<HoKhauModel, String> maHKCol;
     @FXML
+    private TableColumn<HoKhauModel, String> maToaNhaCol;
+    @FXML
     private TableColumn<HoKhauModel, Float> dienTichCol;
     @FXML
     private TableColumn<HoKhauModel, String> chuHoCol;
     @FXML
     private TableColumn<HoKhauModel, LocalDate> ngayLapCol;
+    @FXML
+    private TableColumn<HoKhauModel, HoKhauModel> thaoTacCol;
 
     @FXML
     private TextField searchbar;
 
     private ObservableList<HoKhauModel> list;
-    private List<String> maHoKhauList = new ArrayList<>();
 
     @FXML
     public void initialize() {
-        loadData();
-        initializeSearchbar();
+        // Setup columns
+        maHKCol.setCellValueFactory(new PropertyValueFactory<>("maHoKhau"));
+        dienTichCol.setCellValueFactory(new PropertyValueFactory<>("dienTichHo"));
+        chuHoCol.setCellValueFactory(new PropertyValueFactory<>("chuHo"));
+        ngayLapCol.setCellValueFactory(new PropertyValueFactory<>("ngayLap"));
+        maToaNhaCol.setCellValueFactory(new PropertyValueFactory<>("maToaNha"));
 
-        // Populate update ComboBox
-        for (HoKhauModel hoKhau : list) {
-            maHoKhauList.add(hoKhau.getMaHoKhau());
-        }
-        updateMaHoKhauCBox.setItems(FXCollections.observableArrayList(maHoKhauList));
+        // Thao Tac Column with Icons
+        thaoTacCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        thaoTacCol.setCellFactory(param -> new TableCell<HoKhauModel, HoKhauModel>() {
+            private final Button editButton = new Button("");
+            private final Button deleteButton = new Button("");
+            private final HBox pane = new HBox(10, editButton, deleteButton);
 
-        // Listener for update selection
-        updateMaHoKhauCBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                for (HoKhauModel hk : list) {
-                    if (hk.getMaHoKhau().equals(newValue)) {
-                        updateDienTichText.setText(String.valueOf(hk.getDienTichHo()));
-                        updateNgayLap.setValue(hk.getNgayLap());
-                        break;
-                    }
+            {
+                // Edit Icon
+                ImageView editIcon = new ImageView(new Image(getClass().getResourceAsStream("/image/edit.png")));
+                editIcon.setFitHeight(20);
+                editIcon.setFitWidth(20);
+                editButton.setGraphic(editIcon);
+                editButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+                editButton.setOnAction(event -> {
+                    HoKhauModel hoKhau = getTableView().getItems().get(getIndex());
+                    handleEdit(hoKhau);
+                });
+
+                // Delete Icon
+                ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/image/trash.png")));
+                deleteIcon.setFitHeight(20);
+                deleteIcon.setFitWidth(20);
+                deleteButton.setGraphic(deleteIcon);
+                deleteButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+                deleteButton.setOnAction(event -> {
+                    HoKhauModel hoKhau = getTableView().getItems().get(getIndex());
+                    handleDelete(hoKhau);
+                });
+
+                pane.setAlignment(javafx.geometry.Pos.CENTER);
+            }
+
+            @Override
+            protected void updateItem(HoKhauModel item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(pane);
                 }
             }
         });
+
+        loadData();
+        initializeSearchbar();
     }
 
     @FXML
     public void addHoKhauOnAction(ActionEvent event) {
-        String maHoKhau = addMaHoKhauText.getText();
-        String dienTichStr = addDienTichText.getText();
-        LocalDate ngayLap = addNgayLap.getValue();
-
-        if (ControllerUtil.isEmptyOrNull(maHoKhau) || ControllerUtil.isEmptyOrNull(dienTichStr) || ngayLap == null) {
-            ControllerUtil.showErrorMessage("Vui lòng nhập đủ thông tin!");
-            return;
-        }
-
-        if (maHoKhauList.contains(maHoKhau)) {
-            ControllerUtil.showErrorMessage("Mã căn hộ đã tồn tại!");
-            return;
-        }
-
         try {
-            float dienTich = Float.parseFloat(dienTichStr);
-            if (dienTich <= 0) {
-                ControllerUtil.showErrorMessage("Diện tích phải > 0");
-                return;
-            }
-
-            if (ControllerUtil.showConfirmationDialog("Xác nhận", "Thêm hộ khẩu mới?")) {
-                // Owner is initially null/empty until assigned via NhanKhau
-                HoKhauModel newHoKhau = new HoKhauModel(maHoKhau, ngayLap, dienTich, "");
-                MysqlConnector.getInstance().addHoKhauData(newHoKhau);
-
-                ControllerUtil.showSuccessAlert("Thêm thành công!");
-                refreshData();
-                clearAddForm();
-            }
-        } catch (NumberFormatException e) {
-            ControllerUtil.showErrorMessage("Diện tích không hợp lệ!");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AddHoKhauView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Thêm hộ khẩu mới");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            refreshData();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    public void updateHoKhauOnAction(ActionEvent event) {
-        String maHoKhau = updateMaHoKhauCBox.getValue();
-        String dienTichStr = updateDienTichText.getText();
-        LocalDate ngayLap = updateNgayLap.getValue();
-
-        if (ControllerUtil.isEmptyOrNull(maHoKhau) || ControllerUtil.isEmptyOrNull(dienTichStr) || ngayLap == null) {
-            ControllerUtil.showErrorMessage("Vui lòng nhập đủ thông tin!");
-            return;
-        }
-
+    public void handleEdit(HoKhauModel hoKhau) {
         try {
-            float dienTich = Float.parseFloat(dienTichStr);
-            if (dienTich <= 0) {
-                ControllerUtil.showErrorMessage("Diện tích phải > 0");
-                return;
-            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EditHoKhauView.fxml"));
+            Parent root = loader.load();
 
-            if (ControllerUtil.showConfirmationDialog("Xác nhận", "Cập nhật hộ khẩu?")) {
-                // Preserve existing owner name for model, though updateHoKhauData ignores it
-                String currentOwner = "";
-                for (HoKhauModel hk : list)
-                    if (hk.getMaHoKhau().equals(maHoKhau))
-                        currentOwner = hk.getChuHo();
+            EditHoKhauController controller = loader.getController();
+            controller.setHoKhau(hoKhau);
 
-                HoKhauModel updated = new HoKhauModel(maHoKhau, ngayLap, dienTich, currentOwner);
-                MysqlConnector.getInstance().updateHoKhauData(updated);
-
-                ControllerUtil.showSuccessAlert("Cập nhật thành công!");
-                refreshData();
-                clearUpdateForm();
-            }
-        } catch (NumberFormatException e) {
-            ControllerUtil.showErrorMessage("Diện tích không hợp lệ!");
+            Stage stage = new Stage();
+            stage.setTitle("Cập nhật hộ khẩu");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            refreshData();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    public void deleteHoKhauOnAction(ActionEvent event) {
-        HoKhauModel hoKhau = householdTableView.getSelectionModel().getSelectedItem();
-        if (hoKhau == null) {
-            ControllerUtil.showErrorMessage("Vui lòng chọn hộ khẩu muốn xóa!");
-            return;
-        }
+    public void handleDelete(HoKhauModel hoKhau) {
         if (ControllerUtil.showConfirmationDialog("Xác nhận", "Xóa hộ khẩu " + hoKhau.getMaHoKhau() + "?")) {
             MysqlConnector.getInstance().deleteHoKhauData(hoKhau.getMaHoKhau());
             refreshData();
@@ -166,11 +143,6 @@ public class HoKhauController {
     }
 
     private void loadData() {
-        maHKCol.setCellValueFactory(new PropertyValueFactory<>("maHoKhau"));
-        dienTichCol.setCellValueFactory(new PropertyValueFactory<>("dienTichHo"));
-        chuHoCol.setCellValueFactory(new PropertyValueFactory<>("chuHo"));
-        ngayLapCol.setCellValueFactory(new PropertyValueFactory<>("ngayLap"));
-
         list = MysqlConnector.getInstance().getHoKhauData();
         householdTableView.setItems(list);
     }
@@ -178,14 +150,6 @@ public class HoKhauController {
     private void refreshData() {
         list = MysqlConnector.getInstance().getHoKhauData();
         householdTableView.setItems(list);
-
-        // Update combo box
-        maHoKhauList.clear();
-        for (HoKhauModel hoKhau : list) {
-            maHoKhauList.add(hoKhau.getMaHoKhau());
-        }
-        updateMaHoKhauCBox.setItems(FXCollections.observableArrayList(maHoKhauList));
-
         initializeSearchbar();
     }
 
@@ -201,23 +165,13 @@ public class HoKhauController {
                     return true;
                 if (hoKhau.getChuHo() != null && hoKhau.getChuHo().toLowerCase().contains(lowerCaseFilter))
                     return true;
+                if (hoKhau.getMaToaNha() != null && hoKhau.getMaToaNha().toLowerCase().contains(lowerCaseFilter))
+                    return true;
                 return false;
             });
         });
         SortedList<HoKhauModel> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(householdTableView.comparatorProperty());
         householdTableView.setItems(sortedData);
-    }
-
-    private void clearAddForm() {
-        addMaHoKhauText.clear();
-        addDienTichText.clear();
-        addNgayLap.setValue(null);
-    }
-
-    private void clearUpdateForm() {
-        updateMaHoKhauCBox.getSelectionModel().clearSelection();
-        updateDienTichText.clear();
-        updateNgayLap.setValue(null);
     }
 }

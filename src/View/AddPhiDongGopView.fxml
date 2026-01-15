@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddPhiDongGopController">
+   <children>
+      <Label layoutX="60.0" layoutY="30.0" text="Thêm khoản phí đóng góp">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="90.0" text="Tên khoản phí:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tenPhiText" layoutX="160.0" layoutY="85.0" prefHeight="30.0" prefWidth="200.0" promptText="Ví dụ: Quỹ khuyến học" />
+      <Label layoutX="40.0" layoutY="140.0" text="Số tiền gợi ý:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="soTienGoiYText" layoutX="160.0" layoutY="135.0" prefHeight="30.0" prefWidth="200.0" promptText="Đơn vị: VNĐ" />
+      <Button layoutX="80.0" layoutY="220.0" mnemonicParsing="false" onAction="#addFeeOnAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Thêm">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="220.0" layoutY="220.0" mnemonicParsing="false" onAction="#cancelOnAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #f44336; -fx-text-fill: white;" text="Hủy">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

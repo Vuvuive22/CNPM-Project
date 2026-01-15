@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -19,12 +20,50 @@
    <left>
       <VBox fx:id="sidebarPane" prefHeight="773.5" prefWidth="260.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <!-- Residents Menu -->
-            <MenuButton fx:id="homeOwnerButton" accessibleRole="BUTTON" graphicTextGap="20.0" maxWidth="Infinity" mnemonicParsing="false" popupSide="RIGHT" styleClass="dbButton" text="Dân cư">
-               <items>
-                  <MenuItem fx:id="residentButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Nhân khẩu" />
-                  <MenuItem fx:id="householdButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Hộ khẩu" />
-               </items>
+            <!-- Home/Statistics Button -->
+            <Button fx:id="statisticButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#HandleClick" prefHeight="50.0" prefWidth="260.0" styleClass="dbButton" text="Trang chủ">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/house.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Button>
+
+            <!-- Building Button -->
+            <Button fx:id="toaNhaButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#HandleClick" prefHeight="50.0" prefWidth="260.0" styleClass="dbButton" text="Tòa nhà">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/house.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Button>
+
+            <!-- Household Button -->
+            <Button fx:id="householdButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#HandleClick" prefHeight="50.0" prefWidth="260.0" styleClass="dbButton" text="Hộ gia đình">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/house.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Button>
+
+            <!-- Resident Button -->
+            <Button fx:id="residentButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#HandleClick" prefHeight="50.0" prefWidth="260.0" styleClass="dbButton" text="Cư dân">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -35,7 +74,21 @@
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
-            </MenuButton>
+            </Button>
+
+            <!-- Vehicle Management Button -->
+            <Button fx:id="vehicleButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#QuanLyPhuongTienOnAction" prefHeight="50.0" prefWidth="260.0" styleClass="dbButton" text="Quản lý phương tiện">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/ResidentIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Button>
             
             <!-- Fees Menu -->
             <MenuButton fx:id="feeButton" graphicTextGap="20.0" maxWidth="Infinity" mnemonicParsing="false" popupSide="RIGHT" styleClass="dbButton" text="Khoản thu">
@@ -46,7 +99,6 @@
                   <MenuItem fx:id="livingFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Phí sinh hoạt" />
                   <MenuItem fx:id="voluntaryFeeButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Phí đóng góp" />
                   <MenuItem fx:id="payButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Thanh toán" />
-                  <MenuItem fx:id="statisticButton" mnemonicParsing="false" onAction="#HandleClick" styleClass="dbItem" text="Thống kê" />
               </items>
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">

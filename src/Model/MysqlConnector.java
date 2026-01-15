@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Statement;
 import java.time.LocalDate;
 
 //Using Singleton Pattern to optimize this class
@@ -24,6 +23,126 @@ public class MysqlConnector {
     private MysqlConnector() {
         // Initialize Database Schema
         Database.SetupDatabase.setup();
+        createToaNhaTable();
+        createPhuongTienTable();
+        updateHoKhauSchema();
+    }
+
+    private void updateHoKhauSchema() {
+        try {
+            Connection conn = getConnection();
+            java.sql.DatabaseMetaData meta = conn.getMetaData();
+            ResultSet rs = meta.getColumns(null, null, "HoKhau", "MaToaNha");
+            if (!rs.next()) {
+                Statement stmt = conn.createStatement();
+                String sql = "ALTER TABLE HoKhau ADD COLUMN MaToaNha VARCHAR(10) DEFAULT NULL";
+                stmt.executeUpdate(sql);
+                // Optional: Add Foreign Key constraint if ToaNha exists
+                // stmt.executeUpdate("ALTER TABLE HoKhau ADD FOREIGN KEY (MaToaNha) REFERENCES
+                // ToaNha(MaToaNha)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createPhuongTienTable() {
+        try {
+            Connection conn = getConnection();
+            Statement statement = conn.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS PhuongTien (" +
+                    "MaPhuongTien INT AUTO_INCREMENT PRIMARY KEY," +
+                    "MaHoKhau VARCHAR(10)," +
+                    "LoaiXe VARCHAR(20)," +
+                    "BienSo VARCHAR(20)," +
+                    "ChuXe VARCHAR(50)," +
+                    "FOREIGN KEY (MaHoKhau) REFERENCES HoKhau(MaHoKhau)" +
+                    ")";
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createToaNhaTable() {
+        try {
+            Connection conn = getConnection();
+            Statement statement = conn.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS ToaNha (" +
+                    "MaToaNha VARCHAR(10) PRIMARY KEY," +
+                    "TenToaNha VARCHAR(100) NOT NULL," +
+                    "MoTa TEXT" +
+                    ")";
+            statement.execute(sql);
+
+            // Add sample data if empty
+            String checkSql = "SELECT COUNT(*) FROM ToaNha";
+            ResultSet rs = statement.executeQuery(checkSql);
+            if (rs.next() && rs.getInt(1) == 0) {
+                String insertSql = "INSERT INTO ToaNha VALUES ('2', 'Tòa B', 'Tòa nhà B - 15 tầng, 150 căn hộ')";
+                statement.execute(insertSql);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ObservableList<ToaNhaModel> getAllToaNha() {
+        ObservableList<ToaNhaModel> list = FXCollections.observableArrayList();
+        try {
+            String query = "SELECT * FROM ToaNha";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new ToaNhaModel(rs.getString("MaToaNha"), rs.getString("TenToaNha"), rs.getString("MoTa")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean deleteToaNha(String maToaNha) {
+        try {
+            String query = "DELETE FROM ToaNha WHERE MaToaNha = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, maToaNha);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean addToaNha(ToaNhaModel toaNha) {
+        try {
+            Connection conn = getConnection();
+            String query = "INSERT INTO ToaNha (MaToaNha, TenToaNha, MoTa) VALUES (?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, toaNha.getMaToaNha());
+            ps.setString(2, toaNha.getTenToaNha());
+            ps.setString(3, toaNha.getMoTa());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateToaNha(ToaNhaModel toaNha) {
+        try {
+            Connection conn = getConnection();
+            String query = "UPDATE ToaNha SET TenToaNha = ?, MoTa = ? WHERE MaToaNha = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, toaNha.getTenToaNha());
+            ps.setString(2, toaNha.getMoTa());
+            ps.setString(3, toaNha.getMaToaNha());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static MysqlConnector getInstance() {
@@ -266,6 +385,40 @@ public class MysqlConnector {
         return numberOfNhanKhau;
     }
 
+    public int getNumberOfHoKhau() {
+        int numberOfHoKhau = 0;
+        try {
+            String query = "SELECT COUNT(*) AS count FROM HoKhau";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                numberOfHoKhau = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return numberOfHoKhau;
+    }
+
+    public int getNumberOfToaNha() {
+        int numberOfToaNha = 0;
+        try {
+            String query = "SELECT COUNT(*) AS count FROM ToaNha";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                numberOfToaNha = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return numberOfToaNha;
+    }
+
     public void addNhanKhauData(NhanKhauModel nhanKhau) {
         try {
             String query = "INSERT INTO NhanKhau (MaHoKhau, HoTen, Tuoi, GioiTinh, SoCMND_CCCD, SoDT, QuanHe, TamVang, TamTru) "
@@ -421,7 +574,7 @@ public class MysqlConnector {
     public ObservableList<HoKhauModel> getHoKhauData() {
         ObservableList<HoKhauModel> list = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT H.MaHoKhau, H.NgayLap, H.DienTichHo, NK.HoTen as ChuHo " +
+            String sql = "SELECT H.MaHoKhau, H.NgayLap, H.DienTichHo, H.MaToaNha, NK.HoTen as ChuHo " +
                     "FROM HoKhau H " +
                     "LEFT JOIN NhanKhau NK ON H.MaHoKhau = NK.MaHoKhau AND NK.QuanHe = 'Chủ Hộ'";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -429,9 +582,10 @@ public class MysqlConnector {
             while (rs.next()) {
                 list.add(new HoKhauModel(
                         rs.getString("MaHoKhau"),
-                        rs.getObject("NgayLap", LocalDate.class),
+                        rs.getDate("NgayLap") != null ? rs.getDate("NgayLap").toLocalDate() : null,
                         rs.getFloat("DienTichHo"),
-                        rs.getString("ChuHo")));
+                        rs.getString("ChuHo"),
+                        rs.getString("MaToaNha")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -440,31 +594,18 @@ public class MysqlConnector {
     }
 
     public ObservableList<String> getMaHoKhauData() {
-        ObservableList<HoKhauModel> hoKhauList = getHoKhauData();
-        ObservableList<String> maHoKhauList = FXCollections.observableArrayList();
-
-        for (HoKhauModel hoKhau : hoKhauList) {
-            maHoKhauList.add(hoKhau.getMaHoKhau());
-        }
-
-        return maHoKhauList;
-    }
-
-    public int getNumberOfHoKhau() {
-        int numberOfHoKhau = 0;
+        ObservableList<String> list = FXCollections.observableArrayList();
         try {
-            String query = "SELECT COUNT(*) AS count FROM HoKhau";
-            PreparedStatement ps = connection.prepareStatement(query);
+            String sql = "SELECT MaHoKhau FROM HoKhau";
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                numberOfHoKhau = rs.getInt("count");
+            while (rs.next()) {
+                list.add(rs.getString("MaHoKhau"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return numberOfHoKhau;
+        return list;
     }
 
     public void addHoKhauData(HoKhauModel newHoKhau) {
@@ -472,7 +613,7 @@ public class MysqlConnector {
             // Note: Trigger exists to populate fee tables.
             // DiaChi is NOT NULL in DB, so we must provide a value (empty string for now as
             // it's deprecated in UI)
-            String query = "INSERT INTO HoKhau (MaHoKhau, NgayLap, DienTichHo, DiaChi) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO HoKhau (MaHoKhau, NgayLap, DienTichHo, DiaChi, MaToaNha) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
 
             ps.setString(1, newHoKhau.getMaHoKhau());
@@ -483,8 +624,86 @@ public class MysqlConnector {
             }
             ps.setFloat(3, newHoKhau.getDienTichHo());
             ps.setString(4, ""); // DiaChi default
+            ps.setString(5, newHoKhau.getMaToaNha());
 
             ps.executeUpdate();
+
+            // Automatically initialize fees for the new household
+            initFeesForNewHoKhau(newHoKhau.getMaHoKhau(), newHoKhau.getDienTichHo(),
+                    java.time.LocalDate.now().getYear());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initFeesForNewHoKhau(String maHoKhau, float dienTichHo, int year) {
+        try {
+            // 1. Get Unit Prices
+            float giaPhiDichVu = getGiaPhiData("PhiDichVu", year);
+            if (giaPhiDichVu == 0)
+                giaPhiDichVu = getGiaPhiData("PhiDichVu", year - 1);
+            if (giaPhiDichVu == 0)
+                giaPhiDichVu = 16500;
+
+            float giaPhiQuanLy = getGiaPhiData("PhiQuanLy", year);
+            if (giaPhiQuanLy == 0)
+                giaPhiQuanLy = getGiaPhiData("PhiQuanLy", year - 1);
+            if (giaPhiQuanLy == 0)
+                giaPhiQuanLy = 7000;
+
+            float giaXeMay = getFeePerVehicleData("GiaXeMay", year);
+            if (giaXeMay == 0)
+                giaXeMay = getFeePerVehicleData("GiaXeMay", year - 1);
+            if (giaXeMay == 0)
+                giaXeMay = 70000;
+
+            float giaOTo = getFeePerVehicleData("GiaOTo", year);
+            if (giaOTo == 0)
+                giaOTo = getFeePerVehicleData("GiaOTo", year - 1);
+            if (giaOTo == 0)
+                giaOTo = 1200000;
+
+            float giaXeDap = getFeePerVehicleData("GiaXeDap", year);
+            if (giaXeDap == 0)
+                giaXeDap = getFeePerVehicleData("GiaXeDap", year - 1);
+            if (giaXeDap == 0)
+                giaXeDap = 50000;
+
+            // 2. Insert PhiDichVu
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT IGNORE INTO PhiDichVu (MaHoKhau, GiaPhi, TienNopMoiThang, Nam) VALUES (?, ?, ?, ?)");
+            ps.setString(1, maHoKhau);
+            ps.setFloat(2, giaPhiDichVu);
+            ps.setFloat(3, giaPhiDichVu * dienTichHo);
+            ps.setInt(4, year);
+            ps.executeUpdate();
+
+            // 3. Insert PhiQuanLy
+            ps = connection.prepareStatement(
+                    "INSERT IGNORE INTO PhiQuanLy (MaHoKhau, GiaPhi, TienNopMoiThang, Nam) VALUES (?, ?, ?, ?)");
+            ps.setString(1, maHoKhau);
+            ps.setFloat(2, giaPhiQuanLy);
+            ps.setFloat(3, giaPhiQuanLy * dienTichHo);
+            ps.setInt(4, year);
+            ps.executeUpdate();
+
+            // 4. Insert PhiSinhHoat
+            ps = connection.prepareStatement("INSERT IGNORE INTO PhiSinhHoat (MaHoKhau, Nam) VALUES (?, ?)");
+            ps.setString(1, maHoKhau);
+            ps.setInt(2, year);
+            ps.executeUpdate();
+
+            // 5. Insert PhiGuiXe (Initially 0 vehicles)
+            ps = connection.prepareStatement(
+                    "INSERT IGNORE INTO PhiGuiXe (MaHoKhau, GiaXeMay, GiaOTo, GiaXeDap, TienNopMoiThang, Nam) VALUES (?, ?, ?, ?, 0, ?)");
+            ps.setString(1, maHoKhau);
+            ps.setFloat(2, giaXeMay);
+            ps.setFloat(3, giaOTo);
+            ps.setFloat(4, giaXeDap);
+            ps.setInt(5, year);
+            ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -492,12 +711,13 @@ public class MysqlConnector {
 
     public void updateHoKhauData(HoKhauModel updatedHoKhau) {
         try {
-            String query = "UPDATE HoKhau SET NgayLap = ?, DienTichHo = ? WHERE MaHoKhau = ?";
+            String query = "UPDATE HoKhau SET NgayLap = ?, DienTichHo = ?, MaToaNha = ? WHERE MaHoKhau = ?";
             PreparedStatement ps = connection.prepareStatement(query);
 
             ps.setObject(1, updatedHoKhau.getNgayLap());
             ps.setFloat(2, updatedHoKhau.getDienTichHo());
-            ps.setString(3, updatedHoKhau.getMaHoKhau());
+            ps.setString(3, updatedHoKhau.getMaToaNha());
+            ps.setString(4, updatedHoKhau.getMaHoKhau());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -929,6 +1149,143 @@ public class MysqlConnector {
         }
     }
 
+    public boolean addPhuongTien(PhuongTienModel phuongTien) {
+        try {
+            Connection conn = getConnection();
+            // 1. Insert into PhuongTien
+            String insertSql = "INSERT INTO PhuongTien (MaHoKhau, LoaiXe, BienSo, ChuXe) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(insertSql);
+            ps.setString(1, phuongTien.getMaHoKhau());
+            ps.setString(2, phuongTien.getLoaiXe());
+            ps.setString(3, phuongTien.getBienSo());
+            ps.setString(4, phuongTien.getChuXe());
+            ps.executeUpdate();
+
+            // 2. Update HoKhau counts
+            String updateHoKhauSql = "";
+            if ("Xe Máy".equals(phuongTien.getLoaiXe())) {
+                updateHoKhauSql = "UPDATE HoKhau SET SoXeMay = SoXeMay + 1 WHERE MaHoKhau = ?";
+            } else if ("Ô Tô".equals(phuongTien.getLoaiXe())) {
+                updateHoKhauSql = "UPDATE HoKhau SET SoOTo = SoOTo + 1 WHERE MaHoKhau = ?";
+            } else if ("Xe Đạp".equals(phuongTien.getLoaiXe())) {
+                updateHoKhauSql = "UPDATE HoKhau SET SoXeDap = SoXeDap + 1 WHERE MaHoKhau = ?";
+            }
+
+            if (!updateHoKhauSql.isEmpty()) {
+                PreparedStatement psUpdate = conn.prepareStatement(updateHoKhauSql);
+                psUpdate.setString(1, phuongTien.getMaHoKhau());
+                psUpdate.executeUpdate();
+            }
+
+            // 3. Recalculate Fee (PhiGuiXe)
+            // Retrieve updated counts
+            String getCountsSql = "SELECT SoXeMay, SoOTo, SoXeDap FROM HoKhau WHERE MaHoKhau = ?";
+            PreparedStatement psGet = conn.prepareStatement(getCountsSql);
+            psGet.setString(1, phuongTien.getMaHoKhau());
+            ResultSet rs = psGet.executeQuery();
+            if (rs.next()) {
+                int soXeMay = rs.getInt("soXeMay");
+                int soOTo = rs.getInt("soOTo");
+                int soXeDap = rs.getInt("soXeDap");
+
+                int year = java.time.LocalDate.now().getYear();
+                changeVehicleData(phuongTien.getMaHoKhau(), soXeMay, soOTo, soXeDap, year);
+            }
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ObservableList<PhuongTienModel> getVehiclesByHoKhau(String maHoKhau) {
+        ObservableList<PhuongTienModel> list = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM PhuongTien WHERE MaHoKhau = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, maHoKhau);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new PhuongTienModel(
+                        rs.getInt("MaPhuongTien"),
+                        rs.getString("MaHoKhau"),
+                        rs.getString("LoaiXe"),
+                        rs.getString("BienSo"),
+                        rs.getString("ChuXe")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean deleteVehicle(PhuongTienModel vehicle) {
+        try {
+            Connection conn = getConnection();
+
+            // 1. Delete from PhuongTien
+            String deleteSql = "DELETE FROM PhuongTien WHERE MaPhuongTien = ?";
+            PreparedStatement psDelete = conn.prepareStatement(deleteSql);
+            psDelete.setInt(1, vehicle.getMaPhuongTien());
+            psDelete.executeUpdate();
+
+            // 2. Decrement HoKhau counts
+            String updateHoKhauSql = "";
+            if ("Xe Máy".equals(vehicle.getLoaiXe())) {
+                updateHoKhauSql = "UPDATE HoKhau SET SoXeMay = SoXeMay - 1 WHERE MaHoKhau = ? AND SoXeMay > 0";
+            } else if ("Ô Tô".equals(vehicle.getLoaiXe())) {
+                updateHoKhauSql = "UPDATE HoKhau SET SoOTo = SoOTo - 1 WHERE MaHoKhau = ? AND SoOTo > 0";
+            } else if ("Xe Đạp".equals(vehicle.getLoaiXe())) {
+                updateHoKhauSql = "UPDATE HoKhau SET SoXeDap = SoXeDap - 1 WHERE MaHoKhau = ? AND SoXeDap > 0";
+            }
+
+            if (!updateHoKhauSql.isEmpty()) {
+                PreparedStatement psUpdate = conn.prepareStatement(updateHoKhauSql);
+                psUpdate.setString(1, vehicle.getMaHoKhau());
+                psUpdate.executeUpdate();
+            }
+
+            // 3. Recalculate Fee (PhiGuiXe)
+            // Retrieve updated counts
+            String getCountsSql = "SELECT SoXeMay, SoOTo, SoXeDap FROM HoKhau WHERE MaHoKhau = ?";
+            PreparedStatement psGet = conn.prepareStatement(getCountsSql);
+            psGet.setString(1, vehicle.getMaHoKhau());
+            ResultSet rs = psGet.executeQuery();
+            if (rs.next()) {
+                int soXeMay = rs.getInt("soXeMay");
+                int soOTo = rs.getInt("soOTo");
+                int soXeDap = rs.getInt("soXeDap");
+
+                int year = java.time.LocalDate.now().getYear();
+                changeVehicleData(vehicle.getMaHoKhau(), soXeMay, soOTo, soXeDap, year);
+            }
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ObservableList<String> getResidentsByHoKhau(String maHoKhau) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT HoTen FROM NhanKhau WHERE MaHoKhau = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, maHoKhau);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getString("HoTen"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public void changeFeePerVehicleData(float giaXeMay, float giaOTo, float giaXeDap, int nam) {
         ObservableList<HoKhauModel> list = getVehicleData();
         for (HoKhauModel hoKhau : list) {
@@ -1262,6 +1619,34 @@ public class MysqlConnector {
             ps.setString(1, maHoKhau);
             ps.setInt(2, nam);
             ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAllVehicleData() {
+        try {
+            Connection conn = getConnection();
+
+            // 1. Delete all detailed vehicle records
+            String deletePhuongTien = "DELETE FROM PhuongTien";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(deletePhuongTien);
+
+            // 2. Reset counts in HoKhau
+            String resetHoKhau = "UPDATE HoKhau SET SoXeMay = 0, SoOTo = 0, SoXeDap = 0";
+            stmt.executeUpdate(resetHoKhau);
+
+            // 3. Reset monthly fee in PhiGuiXe
+            // We only reset the total monthly fee to 0, or should we also reset unit
+            // prices?
+            // Usually just the total fee (TienNopMoiThang) needs to be 0 since there are no
+            // vehicles.
+            // But we should probably keep unit prices (GiaXeMay etc) as they are global or
+            // per apartment settings.
+            String resetPhiGuiXe = "UPDATE PhiGuiXe SET TienNopMoiThang = 0";
+            stmt.executeUpdate(resetPhiGuiXe);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

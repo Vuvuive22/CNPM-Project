@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UpdateParkingFeeController">
+   <children>
+      <Label layoutX="46.0" layoutY="25.0" text="Cập nhật tiền gửi xe">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      
+      <Label layoutX="40.0" layoutY="80.0" text="Phí gửi Xe Máy:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="giaXeMayText" layoutX="160.0" layoutY="75.0" prefHeight="30.0" prefWidth="200.0" promptText="VNĐ/tháng" />
+      
+      <Label layoutX="40.0" layoutY="130.0" text="Phí gửi Ô Tô:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="giaOToText" layoutX="160.0" layoutY="125.0" prefHeight="30.0" prefWidth="200.0" promptText="VNĐ/tháng" />
+      
+      <Label layoutX="40.0" layoutY="180.0" text="Phí gửi Xe Đạp:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="giaXeDapText" layoutX="160.0" layoutY="175.0" prefHeight="30.0" prefWidth="200.0" promptText="VNĐ/tháng" />
+      
+      <Button layoutX="80.0" layoutY="250.0" mnemonicParsing="false" onAction="#updateOnAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Cập nhật">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="220.0" layoutY="250.0" mnemonicParsing="false" onAction="#cancelOnAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #f44336; -fx-text-fill: white;" text="Hủy">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

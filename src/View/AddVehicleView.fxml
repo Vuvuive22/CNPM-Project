@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="450.0" style="-fx-background-color: white;" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddVehicleController">
+   <children>
+      <Label layoutX="120.0" layoutY="20.0" text="Thêm phương tiện mới" textFill="#102a43">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      
+      <Label layoutX="40.0" layoutY="80.0" text="Mã căn hộ:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="maHoKhauCBox" layoutX="160.0" layoutY="75.0" prefHeight="30.0" prefWidth="240.0" promptText="Chọn căn hộ" styleClass="combo-box" />
+      
+      <Label layoutX="40.0" layoutY="130.0" text="Chủ xe:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="chuXeCBox" layoutX="160.0" layoutY="125.0" prefHeight="30.0" prefWidth="240.0" promptText="Chọn chủ xe" styleClass="combo-box" />
+      
+      <Label layoutX="40.0" layoutY="180.0" text="Loại xe:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="loaiXeCBox" layoutX="160.0" layoutY="175.0" prefHeight="30.0" prefWidth="240.0" promptText="Chọn loại xe" styleClass="combo-box" />
+      
+      <Label layoutX="40.0" layoutY="230.0" text="Biển số xe:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="bienSoText" layoutX="160.0" layoutY="225.0" prefHeight="30.0" prefWidth="240.0" promptText="Nhập biển số xe (nếu có)" styleClass="text-field" />
+      
+      <Button layoutX="100.0" layoutY="320.0" mnemonicParsing="false" onAction="#addVehicleOnAction" prefHeight="35.0" prefWidth="100.0" styleClass="button-add" text="Thêm" />
+      
+      <Button layoutX="250.0" layoutY="320.0" mnemonicParsing="false" onAction="#cancelOnAction" prefHeight="35.0" prefWidth="100.0" styleClass="button-cancel" text="Hủy" />
+   </children>
+</AnchorPane>

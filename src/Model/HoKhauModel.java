@@ -10,12 +10,14 @@ public class HoKhauModel {
     private int soXeMay;
     private int soOTo;
     private int soXeDap;
+    private String maToaNha;
 
-    public HoKhauModel(String maHoKhau, LocalDate ngayLap, float dienTichHo, String chuHo) {
+    public HoKhauModel(String maHoKhau, LocalDate ngayLap, float dienTichHo, String chuHo, String maToaNha) {
         this.maHoKhau = maHoKhau;
         this.ngayLap = ngayLap;
         this.dienTichHo = dienTichHo;
         this.chuHo = chuHo;
+        this.maToaNha = maToaNha;
     }
 
     public HoKhauModel(String maHoKhau, float dienTichHo) {
@@ -62,6 +64,14 @@ public class HoKhauModel {
 
     public void setChuHo(String chuHo) {
         this.chuHo = chuHo;
+    }
+
+    public String getMaToaNha() {
+        return maToaNha;
+    }
+
+    public void setMaToaNha(String maToaNha) {
+        this.maToaNha = maToaNha;
     }
 
     public int getSoXeMay() {
